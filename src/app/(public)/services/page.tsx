@@ -1,11 +1,13 @@
 import Image from 'next/image';
-import { AirplaneTilt, Boat, Truck, Train, Warehouse, Package, PawPrint } from '@phosphor-icons/react/dist/ssr';
+import Link from 'next/link';
+import { AirplaneTilt, Boat, Truck, Train, Warehouse, Package, PawPrint, ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = { title: 'Services — Global Express Shipments' };
 
 const services = [
   {
+    slug: 'air-freight',
     Icon: AirplaneTilt,
     title: 'Air Freight',
     image: null,
@@ -13,6 +15,7 @@ const services = [
     features: ['Express delivery options', 'Door-to-door service', 'Dangerous goods handling', 'Temperature-controlled cargo'],
   },
   {
+    slug: 'ocean-freight',
     Icon: Boat,
     title: 'Ocean Freight',
     image: '/images/about-container.jpg',
@@ -20,6 +23,7 @@ const services = [
     features: ['Full Container Load (FCL)', 'Less than Container Load (LCL)', 'Port-to-port & door-to-door', 'Customs clearance included'],
   },
   {
+    slug: 'road-freight',
     Icon: Truck,
     title: 'Road Freight',
     image: '/images/hero-truck.jpg',
@@ -27,6 +31,7 @@ const services = [
     features: ['Same-day & next-day delivery', 'Scheduled collection service', 'Temperature-controlled vehicles', 'GPS-tracked fleet'],
   },
   {
+    slug: 'rail-freight',
     Icon: Train,
     title: 'Rail Freight',
     image: null,
@@ -34,6 +39,7 @@ const services = [
     features: ['Trans-Eurasian rail routes', 'Lower carbon footprint', 'Competitive transit times', 'Suitable for heavy cargo'],
   },
   {
+    slug: 'warehousing',
     Icon: Warehouse,
     title: 'Warehousing',
     image: null,
@@ -41,6 +47,7 @@ const services = [
     features: ['24/7 secure facilities', 'Inventory management system', 'Pick & pack services', 'Same-day order fulfilment'],
   },
   {
+    slug: 'project-cargo',
     Icon: Package,
     title: 'Project Cargo',
     image: '/images/service-truck.jpg',
@@ -48,6 +55,7 @@ const services = [
     features: ['Heavy lift & oversized cargo', 'Route surveys & permits', 'Multi-modal transport', 'Dedicated project manager'],
   },
   {
+    slug: 'pet-transport',
     Icon: PawPrint,
     title: 'Pet Transport',
     image: '/images/service-pets.jpg',
@@ -71,10 +79,10 @@ export default function ServicesPage() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-          {services.map(({ Icon, title, image, desc, features }) => (
+          {services.map(({ slug, Icon, title, image, desc, features }) => (
             <div
               key={title}
-              className="group rounded-xl border border-neutral-200 bg-surface shadow-xs hover:shadow-md hover:border-secondary/30 transition-all duration-200 overflow-hidden"
+              className="group rounded-xl border border-neutral-200 bg-surface shadow-xs hover:shadow-md hover:border-secondary/30 transition-all duration-200 overflow-hidden flex flex-col"
             >
               {/* Image banner */}
               {image && (
@@ -98,7 +106,7 @@ export default function ServicesPage() {
                 </div>
               )}
 
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-1">
                 {!image && (
                   <div className="flex items-center gap-3 mb-4">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/10">
@@ -111,7 +119,7 @@ export default function ServicesPage() {
                   <h2 className="text-base font-semibold text-primary mb-3" style={{ fontFamily: 'var(--font-display)' }}>{title}</h2>
                 )}
                 <p className="text-sm text-neutral-500 leading-relaxed mb-4">{desc}</p>
-                <ul className="space-y-1.5">
+                <ul className="space-y-1.5 mb-5">
                   {features.map((f) => (
                     <li key={f} className="flex items-center gap-2 text-sm text-neutral-500">
                       <span className="h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
@@ -119,6 +127,14 @@ export default function ServicesPage() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-auto">
+                  <Link
+                    href={`/services/${slug}`}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-secondary transition-colors cursor-pointer"
+                  >
+                    Learn More <ArrowRight size={14} />
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
