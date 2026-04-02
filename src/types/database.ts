@@ -29,6 +29,8 @@ export interface Shipment {
   origin: string | null;
   destination: string | null;
   estimated_delivery: string | null;
+  current_lat: number | null;
+  current_lng: number | null;
   created_at: string;
   updated_at: string;
 }

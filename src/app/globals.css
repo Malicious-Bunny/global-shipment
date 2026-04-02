@@ -1,18 +1,87 @@
-* {
+@import "tailwindcss";
+
+@theme {
+  /* ─── Fonts ─────────────────────────────────────── */
+  --font-sans:    var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    var(--font-ibm-plex-mono), ui-monospace, 'SFMono-Regular', monospace;
+
+  /* ─── Professional Design System — Brand Tokens ─── */
+  --color-primary:   #000000;
+  --color-secondary: #FECE14;
+  --color-success:   #16A34A;
+  --color-warning:   #D97706;
+  --color-danger:    #DC2626;
+  --color-surface:   #FFFFFF;
+  --color-text:      #111827;
+
+  /* ─── AlignUI Neutral Scale (zinc-based) ────────── */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #fafaf9;
+  --color-neutral-100: #f4f4f5;
+  --color-neutral-200: #e4e4e7;
+  --color-neutral-300: #d4d4d8;
+  --color-neutral-400: #a1a1aa;
+  --color-neutral-500: #71717a;
+  --color-neutral-600: #52525b;
+  --color-neutral-700: #3f3f46;
+  --color-neutral-800: #27272a;
+  --color-neutral-900: #18181b;
+  --color-neutral-950: #09090b;
+
+  /* ─── Semantic Status Colors ─────────────────────── */
+  --color-status-pending:          #a1a1aa;
+  --color-status-picked-up:        #3b82f6;
+  --color-status-in-transit:       #2563eb;
+  --color-status-customs:          #d97706;
+  --color-status-out-for-delivery: #0891b2;
+  --color-status-delivered:        #16a34a;
+  --color-status-on-hold:          #d97706;
+  --color-status-cancelled:        #dc2626;
+
+  /* ─── Border Radius Tokens ───────────────────────── */
+  --radius-6:    6px;
+  --radius-8:    8px;
+  --radius-10:   10px;
+  --radius-12:   12px;
+  --radius-16:   16px;
+  --radius-20:   20px;
+  --radius-full:  9999px;
+
+  /* ─── Shadow Tokens ──────────────────────────────── */
+  --shadow-xs:  0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.10), 0 1px 2px -1px rgb(0 0 0 / 0.10);
+  --shadow-md:  0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10);
+  --shadow-lg:  0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10);
+  --shadow-xl:  0 20px 25px -5px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.10);
+}
+
+/* ─── Base Reset ──────────────────────────────────── */
+*, *::before, *::after {
   box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-html,
 body {
-  height: 100%;
+  font-family: var(--font-sans);
+  background-color: var(--color-neutral-50);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
-body {
-  font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  background-color: #f5f5f5;
-  color: #1a1a1a;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-primary);
 }
 
 a {
@@ -20,8 +89,28 @@ a {
   text-decoration: none;
 }
 
+/* ─── AlignUI Focus Ring ─────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-neutral-100); }
+::-webkit-scrollbar-thumb { background: var(--color-neutral-300); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-neutral-400); }
+
+/* ─── Print Utilities ────────────────────────────── */
 @media print {
-  .no-print {
-    display: none !important;
+  .no-print { display: none !important; }
+}
+
+/* ─── Motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

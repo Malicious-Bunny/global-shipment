@@ -6,22 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "create-admin": "npx ts-node --project tsconfig.json --skip-project scripts/create-admin.ts"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/server": "^11.11.0",
-    "@emotion/styled": "^11.14.1",
     "@hookform/resolvers": "^5.2.2",
-    "@mui/icons-material": "^7.3.9",
-    "@mui/material": "^7.3.9",
+    "@phosphor-icons/react": "^2.1.10",
     "@supabase/ssr": "^0.10.0",
     "@supabase/supabase-js": "^2.101.1",
+    "clsx": "^2.1.1",
     "next": "16.2.2",
     "react": "19.2.4",
     "react-barcode": "^1.6.1",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.72.0",
+    "tailwind-merge": "^3.5.0",
+    "tailwind-variants": "^3.2.2",
     "zod": "^4.3.6"
   },
   "devDependencies": {

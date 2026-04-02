@@ -1,9 +1,20 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import ThemeRegistry from '@/theme/ThemeRegistry';
+import { Poppins, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-poppins',
+  display: 'swap',
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-ibm-plex-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Global Express Shipments',
@@ -11,16 +22,10 @@ export const metadata: Metadata = {
   keywords: 'courier, cargo, shipment, tracking, global express',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ThemeRegistry>{children}</ThemeRegistry>
-      </body>
+    <html lang="en" className={`${poppins.variable} ${ibmPlexMono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
