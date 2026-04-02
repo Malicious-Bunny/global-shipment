@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Package, WarningCircle, CircleNotch, ArrowRight, ShieldCheck, Crosshair, Lightning } from '@phosphor-icons/react';
+import { WarningCircle, CircleNotch, ArrowRight, ShieldCheck, Crosshair, Lightning } from '@phosphor-icons/react';
 import { createClient } from '@/lib/supabase/client';
+import Logo from '@/components/ui/Logo';
 
 const features = [
   { Icon: ShieldCheck, text: 'Secure, role-based access'  },
@@ -49,16 +50,8 @@ export default function AdminLoginPage() {
         />
 
         {/* Logo */}
-        <div className="relative flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary/20 ring-1 ring-secondary/30">
-            <Package size={20} weight="duotone" className="text-secondary" />
-          </div>
-          <div>
-            <p className="text-sm font-bold text-white tracking-wide" style={{ fontFamily: 'var(--font-display)' }}>
-              GLOBAL EXPRESS
-            </p>
-            <p className="text-[10px] text-neutral-500 tracking-[0.2em] uppercase">Shipments</p>
-          </div>
+        <div className="relative">
+          <Logo height={32} className="brightness-0 invert" />
         </div>
 
         {/* Hero copy */}
@@ -99,16 +92,8 @@ export default function AdminLoginPage() {
         <div className="w-full max-w-sm">
 
           {/* Mobile logo */}
-          <div className="flex items-center justify-center gap-2.5 mb-10 lg:hidden">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary/10 ring-1 ring-secondary/20">
-              <Package size={22} weight="duotone" className="text-secondary" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-primary tracking-wide" style={{ fontFamily: 'var(--font-display)' }}>
-                GLOBAL EXPRESS
-              </p>
-              <p className="text-[10px] text-neutral-400 tracking-[0.2em] uppercase">Shipments</p>
-            </div>
+          <div className="flex justify-center mb-10 lg:hidden">
+            <Logo height={36} />
           </div>
 
           <h1

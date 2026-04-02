@@ -4,10 +4,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
-  Package, List, SquaresFour, Truck, Plus, SignOut, ArrowSquareOut, X,
+  List, SquaresFour, Truck, Plus, SignOut, ArrowSquareOut, X,
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import { createClient } from '@/lib/supabase/client';
+import Logo from '@/components/ui/Logo';
 
 const navItems = [
   { label: 'Dashboard',    href: '/admin/dashboard',      Icon: SquaresFour },
@@ -41,16 +42,9 @@ export default function AdminNav({ children }: { children: React.ReactNode }) {
       <div className="h-0.5 w-full bg-secondary shrink-0" />
 
       {/* Logo */}
-      <div className="flex items-center gap-2.5 px-5 py-5 border-b border-white/8">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-secondary/20 ring-1 ring-secondary/30">
-          <Package size={16} weight="duotone" className="text-secondary" />
-        </div>
-        <div className="leading-tight">
-          <p className="text-xs font-semibold text-white tracking-wide" style={{ fontFamily: 'var(--font-display)' }}>
-            GLOBAL EXPRESS
-          </p>
-          <p className="text-[9px] text-neutral-400 tracking-[0.2em] uppercase">Admin Panel</p>
-        </div>
+      <div className="flex flex-col gap-0.5 px-5 py-4 border-b border-white/8">
+        <Logo height={28} className="brightness-0 invert" />
+        <p className="text-[9px] text-white/35 tracking-[0.2em] uppercase pl-0.5">Admin Panel</p>
       </div>
 
       {/* Nav links */}
@@ -65,8 +59,8 @@ export default function AdminNav({ children }: { children: React.ReactNode }) {
               className={cn(
                 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors duration-150 cursor-pointer',
                 active
-                  ? 'border-l-2 border-secondary bg-secondary/15 pl-[10px] text-white'
-                  : 'text-neutral-500 hover:bg-white/6 hover:text-white'
+                  ? 'border-l-2 border-secondary bg-white/10 pl-2.5 text-white font-medium'
+                  : 'text-white/55 hover:bg-white/8 hover:text-white'
               )}
             >
               <Icon size={17} weight={active ? 'duotone' : 'regular'} />
@@ -81,14 +75,14 @@ export default function AdminNav({ children }: { children: React.ReactNode }) {
         <Link
           href="/"
           target="_blank"
-          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-neutral-500 hover:bg-white/6 hover:text-white transition-colors cursor-pointer"
+          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white/55 hover:bg-white/8 hover:text-white transition-colors cursor-pointer"
         >
           <ArrowSquareOut size={17} />
           View Site
         </Link>
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-neutral-500 hover:bg-white/6 hover:text-white transition-colors cursor-pointer"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white/55 hover:bg-white/8 hover:text-white transition-colors cursor-pointer"
         >
           <SignOut size={17} />
           Sign Out
@@ -143,12 +137,7 @@ export default function AdminNav({ children }: { children: React.ReactNode }) {
           >
             <List size={20} />
           </button>
-          <div className="flex items-center gap-2">
-            <Package size={15} weight="duotone" className="text-secondary" />
-            <span className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>
-              Admin Panel
-            </span>
-          </div>
+          <Logo height={24} />
           <button
             onClick={handleLogout}
             className="ml-auto p-2 rounded-lg text-neutral-400 hover:text-danger hover:bg-danger/5 transition-colors cursor-pointer"

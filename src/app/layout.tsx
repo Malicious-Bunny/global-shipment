@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Poppins, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
+import 'leaflet/dist/leaflet.css';
 
 const poppins = Poppins({
   subsets: ['latin'],

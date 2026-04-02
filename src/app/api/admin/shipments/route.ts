@@ -33,10 +33,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
   }
 
-  const { status, ...rest } = parsed.data;
-
+  const { status, current_lat, current_lng, ...rest } = parsed.data;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (supabase as any)
+  const supabaseAny = supabase as any;
+
+  let { data, error } = await supabaseAny
     .from('shipments')
     .insert({
       ...rest,
@@ -44,11 +45,26 @@ export async function POST(req: NextRequest) {
       tracking_number: generateTrackingNumber(),
       weight: rest.weight ?? null,
       estimated_delivery: rest.estimated_delivery || null,
-      current_lat: rest.current_lat ?? null,
-      current_lng: rest.current_lng ?? null,
+      current_lat: current_lat ?? null,
+      current_lng: current_lng ?? null,
     })
     .select()
     .single();
+
+  // Retry without location columns if migration hasn't been run yet
+  if (error && error.message?.includes('current_lat')) {
+    ({ data, error } = await supabaseAny
+      .from('shipments')
+      .insert({
+        ...rest,
+        status,
+        tracking_number: generateTrackingNumber(),
+        weight: rest.weight ?? null,
+        estimated_delivery: rest.estimated_delivery || null,
+      })
+      .select()
+      .single());
+  }
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 

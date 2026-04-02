@@ -18,9 +18,10 @@ export default function MapWidget({ lat, lng, className }: Props) {
       <iframe
         src={src}
         title="Package location map"
-        className="w-full h-full border-0 block"
+        width="100%"
+        height="100%"
+        style={{ border: 0, display: 'block', minHeight: '100%' }}
         loading="lazy"
-        referrerPolicy="no-referrer"
       />
     </div>
   );

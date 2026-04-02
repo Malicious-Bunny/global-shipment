@@ -7,17 +7,17 @@ const contactItems = [
   {
     Icon: MapPin,
     title: 'Address',
-    lines: ['123 Logistics Park, Business District', 'London, UK, EC1A 1BB'],
+    lines: ['Swansea, Wales UK'],
   },
   {
     Icon: Phone,
     title: 'Phone',
-    lines: ['+44 20 7946 0123', '+44 20 7946 0124'],
+    lines: ['+44 7415 413409'],
   },
   {
     Icon: Envelope,
     title: 'Email',
-    lines: ['info@globalexpressshipments.com', 'support@globalexpressshipments.com'],
+    lines: ['info@documents-consultancy.com'],
   },
   {
     Icon: Clock,

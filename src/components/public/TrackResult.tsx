@@ -5,6 +5,7 @@ import { Printer, Package, MapPin } from '@phosphor-icons/react';
 import type { ShipmentWithEvents } from '@/types/database';
 import { STATUS_LABELS, STATUS_COLORS } from '@/lib/tracking';
 import MapWidget from '@/components/ui/MapWidget';
+import Logo from '@/components/ui/Logo';
 
 const Barcode = dynamic(() => import('react-barcode'), { ssr: false });
 
@@ -44,10 +45,14 @@ export default function TrackResult({ shipment }: Props) {
   return (
     <div>
       {/* Banner */}
-      <div className="bg-primary py-4 text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-neutral-400">
-          Track Result
-        </p>
+      <div className="bg-neutral-50 border-b border-neutral-200 py-14">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <div className="h-1 w-10 bg-secondary rounded-full mb-5" />
+          <h1 className="text-4xl sm:text-5xl font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>
+            Track Result
+          </h1>
+          <p className="mt-2 text-neutral-500 font-mono text-sm">{shipment.tracking_number}</p>
+        </div>
       </div>
 
       <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
@@ -65,16 +70,8 @@ export default function TrackResult({ shipment }: Props) {
 
         {/* Barcode card */}
         <div className="bg-surface rounded-xl border border-neutral-200 shadow-xs mb-4 p-6 flex flex-col items-center">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/10 ring-1 ring-secondary/20">
-              <Package size={22} weight="duotone" className="text-secondary" />
-            </div>
-            <div>
-              <p className="font-semibold text-primary text-base leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
-                GLOBAL EXPRESS
-              </p>
-              <p className="text-[10px] text-neutral-400 tracking-[0.2em] uppercase">Shipments</p>
-            </div>
+          <div className="mb-5">
+            <Logo height={32} />
           </div>
           <Barcode
             value={shipment.tracking_number}
@@ -135,12 +132,17 @@ export default function TrackResult({ shipment }: Props) {
 
         {/* Live location map */}
         {shipment.current_lat != null && shipment.current_lng != null && (
-          <div className="mb-4">
-            <div className="mb-2 flex items-center gap-1.5">
-              <MapPin size={14} className="text-secondary" />
-              <span className="text-xs font-semibold uppercase tracking-widest text-neutral-500">Current Location</span>
+          <div className="bg-surface rounded-xl border border-neutral-200 shadow-xs overflow-hidden mb-4">
+            <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50 flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+              </span>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-500">Live Package Location</h3>
             </div>
-            <MapWidget lat={shipment.current_lat} lng={shipment.current_lng} className="h-64 w-full" />
+            <div className="h-72 w-full">
+              <MapWidget lat={shipment.current_lat} lng={shipment.current_lng} className="h-full w-full rounded-none border-0" />
+            </div>
           </div>
         )}
 

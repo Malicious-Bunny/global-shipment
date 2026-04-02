@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Package, Phone, Envelope, MapPin } from '@phosphor-icons/react/dist/ssr';
+import { Phone, Envelope, MapPin } from '@phosphor-icons/react/dist/ssr';
+import Logo from '@/components/ui/Logo';
 
 const quickLinks = [
   { label: 'Home',          href: '/' },
@@ -30,16 +31,8 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary/10 ring-1 ring-secondary/20">
-                <Package size={20} weight="duotone" className="text-secondary" />
-              </div>
-              <div className="leading-tight">
-                <p className="text-sm font-semibold text-primary tracking-wide" style={{ fontFamily: 'var(--font-display)' }}>
-                  GLOBAL EXPRESS
-                </p>
-                <p className="text-[10px] text-neutral-400 tracking-[0.2em] uppercase">Shipments</p>
-              </div>
+            <div className="mb-4">
+              <Logo height={32} />
             </div>
             <p className="text-sm leading-relaxed text-neutral-500 max-w-xs">
               Delivering your parcels and cargo worldwide with speed, safety, and reliability.
@@ -86,17 +79,15 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5">
                 <MapPin size={16} weight="duotone" className="text-secondary mt-0.5 shrink-0" />
-                <span className="text-sm text-neutral-500">
-                  123 Logistics Park, Business District,<br />London, UK, EC1A 1BB
-                </span>
+                <span className="text-sm text-neutral-500">Swansea, Wales UK</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone size={16} weight="duotone" className="text-secondary shrink-0" />
-                <span className="text-sm text-neutral-500">+44 20 7946 0123</span>
+                <span className="text-sm text-neutral-500">+44 7415 413409</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Envelope size={16} weight="duotone" className="text-secondary shrink-0" />
-                <span className="text-sm text-neutral-500">info@globalexpressshipments.com</span>
+                <span className="text-sm text-neutral-500">info@documents-consultancy.com</span>
               </li>
             </ul>
           </div>

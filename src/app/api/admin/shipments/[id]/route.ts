@@ -37,19 +37,39 @@ export async function PUT(req: NextRequest, { params }: Params) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
   }
 
+  // Separate location fields so we can handle missing columns gracefully
+  const { current_lat, current_lng, ...coreData } = parsed.data;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (supabase as any)
+  const supabaseAny = supabase as any;
+
+  // First attempt: full update including location columns
+  let { data, error } = await supabaseAny
     .from('shipments')
     .update({
-      ...parsed.data,
-      weight: parsed.data.weight ?? null,
-      estimated_delivery: parsed.data.estimated_delivery || null,
-      current_lat: parsed.data.current_lat ?? null,
-      current_lng: parsed.data.current_lng ?? null,
+      ...coreData,
+      weight: coreData.weight ?? null,
+      estimated_delivery: coreData.estimated_delivery || null,
+      current_lat: current_lat ?? null,
+      current_lng: current_lng ?? null,
     })
     .eq('id', id)
     .select()
     .single();
+
+  // If location columns don't exist yet (migration not run), retry without them
+  if (error && error.message?.includes('current_lat')) {
+    ({ data, error } = await supabaseAny
+      .from('shipments')
+      .update({
+        ...coreData,
+        weight: coreData.weight ?? null,
+        estimated_delivery: coreData.estimated_delivery || null,
+      })
+      .eq('id', id)
+      .select()
+      .single());
+  }
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 

@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Package, List, X } from '@phosphor-icons/react';
+import { List, X } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
+import Logo from '@/components/ui/Logo';
 
 const navLinks = [
   { label: 'Home',          href: '/' },
@@ -29,16 +30,8 @@ export default function Header() {
           <div className="flex h-16 items-center justify-between">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group" aria-label="Global Express Shipments home">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary/10 ring-1 ring-secondary/20 transition-colors group-hover:bg-secondary/20">
-                <Package size={20} weight="duotone" className="text-secondary" />
-              </div>
-              <div className="leading-tight">
-                <p className="text-sm font-semibold text-primary tracking-wide" style={{ fontFamily: 'var(--font-display)' }}>
-                  GLOBAL EXPRESS
-                </p>
-                <p className="text-[10px] text-neutral-400 tracking-[0.2em] uppercase">Shipments</p>
-              </div>
+            <Link href="/" aria-label="Global Express Shipments home">
+              <Logo height={36} />
             </Link>
 
             {/* Desktop Nav */}
@@ -95,12 +88,7 @@ export default function Header() {
         aria-label="Mobile navigation"
       >
         <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-200">
-          <div className="flex items-center gap-2">
-            <Package size={18} weight="duotone" className="text-secondary" />
-            <span className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>
-              Navigation
-            </span>
-          </div>
+          <Logo height={28} />
           <button
             onClick={() => setOpen(false)}
             className="p-1.5 rounded-lg text-neutral-400 hover:text-primary hover:bg-neutral-100 transition-colors cursor-pointer"

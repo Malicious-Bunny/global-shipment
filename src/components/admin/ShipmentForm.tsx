@@ -4,12 +4,15 @@ import { useForm, Controller, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { WarningCircle, CircleNotch, MapPin } from '@phosphor-icons/react';
 import { shipmentSchema, type ShipmentFormData } from '@/lib/validations';
 import { ALL_STATUSES, STATUS_LABELS } from '@/lib/tracking';
 import type { Shipment } from '@/types/database';
 import { cn } from '@/lib/utils';
-import MapWidget from '@/components/ui/MapWidget';
+
+// Leaflet requires browser APIs — must be client-only
+const MapPicker = dynamic(() => import('@/components/admin/MapPicker'), { ssr: false });
 
 /* ── Shared field components ────────────────────────────────── */
 function Label({ htmlFor, children, required }: { htmlFor: string; children: React.ReactNode; required?: boolean }) {
@@ -96,7 +99,7 @@ export default function ShipmentForm({ shipment, mode }: Props) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const { register, control, handleSubmit, formState: { errors } } = useForm<ShipmentFormData>({
+  const { register, control, handleSubmit, setValue, formState: { errors } } = useForm<ShipmentFormData>({
     resolver: zodResolver(shipmentSchema),
     defaultValues: {
       shipper_name:      shipment?.shipper_name      || '',
@@ -134,6 +137,7 @@ export default function ShipmentForm({ shipment, mode }: Props) {
     const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
     const json = await res.json();
     if (!res.ok) { setServerError(json.error || 'Something went wrong'); setLoading(false); return; }
+    setLoading(false);
     router.push(`/admin/shipments/${json.id}`);
     router.refresh();
   };
@@ -263,38 +267,29 @@ export default function ShipmentForm({ shipment, mode }: Props) {
 
       {/* Location Pin */}
       <FormSection title="Package Location (Map Pin)">
-        <p className="text-xs text-neutral-400 mb-4 flex items-center gap-1.5">
+        <p className="text-xs text-neutral-400 mb-3 flex items-center gap-1.5">
           <MapPin size={12} />
-          Set the current GPS coordinates to show a live map on the customer tracking page.
+          Click the map to place a pin. Customers will see this location on their tracking page.
         </p>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div>
-            <Label htmlFor="current_lat">Latitude</Label>
-            <Input
-              id="current_lat"
-              type="number"
-              step="any"
-              placeholder="e.g. 51.5074"
-              {...register('current_lat', { valueAsNumber: true })}
-            />
-          </div>
-          <div>
-            <Label htmlFor="current_lng">Longitude</Label>
-            <Input
-              id="current_lng"
-              type="number"
-              step="any"
-              placeholder="e.g. -0.1278"
-              {...register('current_lng', { valueAsNumber: true })}
-            />
-          </div>
-        </div>
+        <MapPicker
+          lat={watchedLat as number | null}
+          lng={watchedLng as number | null}
+          onChange={(lat, lng) => {
+            setValue('current_lat', lat, { shouldDirty: true });
+            setValue('current_lng', lng, { shouldDirty: true });
+          }}
+        />
         {hasMap && (
-          <MapWidget
-            lat={watchedLat as number}
-            lng={watchedLng as number}
-            className="mt-4 h-56"
-          />
+          <button
+            type="button"
+            onClick={() => {
+              setValue('current_lat', null, { shouldDirty: true });
+              setValue('current_lng', null, { shouldDirty: true });
+            }}
+            className="mt-2 text-xs text-neutral-400 hover:text-danger transition-colors cursor-pointer"
+          >
+            Clear pin
+          </button>
         )}
       </FormSection>
 
