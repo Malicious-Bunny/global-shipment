@@ -49,6 +49,20 @@ export interface ShipmentWithEvents extends Shipment {
   tracking_events: TrackingEvent[];
 }
 
+export interface ChatSession {
+  id: string;
+  status: 'open' | 'closed';
+  created_at: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  session_id: string;
+  sender: 'visitor' | 'admin';
+  body: string;
+  created_at: string;
+}
+
 // Supabase Database type
 export interface Database {
   public: {
