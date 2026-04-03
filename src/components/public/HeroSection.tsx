@@ -119,7 +119,7 @@ export default function HeroSection() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-white/80 hover:border-white/35 hover:text-white transition-colors duration-200 cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/50 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/20 hover:border-white/70 transition-colors duration-200 cursor-pointer"
               >
                 Contact Us
                 <ArrowUpRight size={15} />
@@ -131,9 +131,9 @@ export default function HeroSection() {
         {/* Bottom: stats + controls */}
         <div className="flex flex-col gap-5">
           {/* Stats row */}
-          <div className="grid grid-cols-4 gap-px border border-white/8 rounded-xl overflow-hidden">
+          <div className="grid grid-cols-4 gap-px border border-white/20 rounded-xl overflow-hidden">
             {stats.map(({ value, label }) => (
-              <div key={label} className="flex flex-col items-center py-3 px-2 bg-white/4">
+              <div key={label} className="flex flex-col items-center py-3 px-2 bg-white/10">
                 <span className="text-lg font-bold text-white leading-none">{value}</span>
                 <span className="text-[10px] text-white/60 mt-0.5 uppercase tracking-wider">{label}</span>
               </div>
