@@ -120,6 +120,7 @@ export default function ShipmentForm({ shipment, mode }: Props) {
       status:            shipment?.status            || 'PENDING',
       current_lat:       shipment?.current_lat       ?? undefined,
       current_lng:       shipment?.current_lng       ?? undefined,
+      delivery_price:    shipment?.delivery_price    ?? undefined,
     },
   });
 
@@ -223,6 +224,10 @@ export default function ShipmentForm({ shipment, mode }: Props) {
           <div>
             <Label htmlFor="weight">Weight (kg)</Label>
             <Input id="weight" type="number" step="0.01" min="0" {...register('weight', { valueAsNumber: true })} placeholder="0.00" />
+          </div>
+          <div>
+            <Label htmlFor="delivery_price">Delivery Price (£)</Label>
+            <Input id="delivery_price" type="number" step="0.01" min="0" {...register('delivery_price', { valueAsNumber: true })} placeholder="0.00" />
           </div>
           <div>
             <Label htmlFor="dimensions">Dimensions (L×W×H cm)</Label>

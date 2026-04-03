@@ -38,7 +38,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
   }
 
   // Separate location fields so we can handle missing columns gracefully
-  const { current_lat, current_lng, ...coreData } = parsed.data;
+  const { current_lat, current_lng, delivery_price, ...coreData } = parsed.data;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const supabaseAny = supabase as any;
@@ -52,6 +52,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
       estimated_delivery: coreData.estimated_delivery || null,
       current_lat: current_lat ?? null,
       current_lng: current_lng ?? null,
+      delivery_price: delivery_price ?? null,
     })
     .eq('id', id)
     .select()
@@ -65,6 +66,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
         ...coreData,
         weight: coreData.weight ?? null,
         estimated_delivery: coreData.estimated_delivery || null,
+        delivery_price: delivery_price ?? null,
       })
       .eq('id', id)
       .select()

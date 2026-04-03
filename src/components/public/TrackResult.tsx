@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Printer, Package, MapPin } from '@phosphor-icons/react';
+import { Printer, MapPin, CheckCircle, Clock, Package, ArrowRight, Tag } from '@phosphor-icons/react';
 import type { ShipmentWithEvents } from '@/types/database';
 import { STATUS_LABELS, STATUS_COLORS } from '@/lib/tracking';
 import MapWidget from '@/components/ui/MapWidget';
@@ -13,23 +13,24 @@ interface Props {
   shipment: ShipmentWithEvents;
 }
 
-function InfoRow({ label, value, accent }: { label: string; value: string | null; accent?: boolean }) {
-  if (!value) return null;
-  return (
-    <div className="flex gap-3 py-2 border-b border-neutral-100 last:border-0">
-      <span className="w-32 shrink-0 text-xs font-medium text-neutral-400 uppercase tracking-wide pt-0.5">{label}</span>
-      <span className={`text-sm ${accent ? 'font-semibold text-primary' : 'text-primary'}`}>{value}</span>
-    </div>
-  );
+// Map statuses to a step index for progress bar
+const STATUS_STEPS = [
+  'PENDING', 'PICKED_UP', 'IN_TRANSIT', 'CUSTOMS_CLEARANCE', 'OUT_FOR_DELIVERY', 'DELIVERED',
+] as const;
+
+const STEP_LABELS = ['Pending', 'Picked Up', 'In Transit', 'Customs', 'Out for Delivery', 'Delivered'];
+
+function statusStep(status: string) {
+  const idx = STATUS_STEPS.indexOf(status as typeof STATUS_STEPS[number]);
+  return idx >= 0 ? idx : -1;
 }
 
-function SectionCard({ title, children }: { title: string; children: React.ReactNode }) {
+function InfoRow({ label, value }: { label: string; value: string | null }) {
+  if (!value) return null;
   return (
-    <div className="bg-surface rounded-xl border border-neutral-200 shadow-xs overflow-hidden mb-4">
-      <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50">
-        <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-500">{title}</h3>
-      </div>
-      <div className="px-5 py-1">{children}</div>
+    <div className="flex justify-between items-start py-2.5 border-b border-neutral-100 last:border-0 gap-4">
+      <span className="text-xs text-neutral-400 uppercase tracking-wider shrink-0 pt-0.5">{label}</span>
+      <span className="text-sm text-primary font-medium text-right">{value}</span>
     </div>
   );
 }
@@ -37,134 +38,262 @@ function SectionCard({ title, children }: { title: string; children: React.React
 export default function TrackResult({ shipment }: Props) {
   const statusColor = STATUS_COLORS[shipment.status] || '#71717a';
   const statusLabel = STATUS_LABELS[shipment.status] || shipment.status;
+  const step = statusStep(shipment.status);
+  const isTerminal = shipment.status === 'DELIVERED' || shipment.status === 'CANCELLED' || shipment.status === 'ON_HOLD';
 
   const sortedEvents = [...(shipment.tracking_events || [])].sort(
     (a, b) => new Date(b.event_timestamp).getTime() - new Date(a.event_timestamp).getTime()
   );
 
   return (
-    <div>
-      {/* Banner */}
-      <div className="bg-neutral-50 border-b border-neutral-200 py-14">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <div className="h-1 w-10 bg-secondary rounded-full mb-5" />
-          <h1 className="text-4xl sm:text-5xl font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>
-            Track Result
-          </h1>
-          <p className="mt-2 text-neutral-500 font-mono text-sm">{shipment.tracking_number}</p>
+    <div className="bg-neutral-50 min-h-screen">
+
+      {/* ── Page header ── */}
+      <div className="bg-primary border-b border-white/10">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10 flex items-end justify-between gap-4">
+          <div>
+            <Logo height={28} className="brightness-0 invert mb-4" />
+            <div className="flex items-center gap-2 mb-1">
+              <span className="h-px w-6 bg-secondary" />
+              <span className="text-[10px] tracking-[0.2em] uppercase text-secondary font-medium">Track & Trace</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">{shipment.tracking_number}</h1>
+          </div>
+          <button
+            onClick={() => window.print()}
+            className="no-print hidden sm:inline-flex items-center gap-2 rounded-lg border border-white/15 px-4 py-2 text-xs font-medium text-white/70 hover:text-white hover:border-white/30 transition-colors cursor-pointer"
+          >
+            <Printer size={14} />
+            Print
+          </button>
         </div>
       </div>
 
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8 space-y-4">
 
-        {/* Print button */}
-        <div className="flex justify-end mb-5 no-print">
-          <button
-            onClick={() => window.print()}
-            className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-surface px-4 py-2 text-sm font-medium text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer"
-          >
-            <Printer size={16} />
-            Print Track Result
-          </button>
-        </div>
+        {/* ── Status + Progress bar ── */}
+        <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
+          {/* Coloured top accent */}
+          <div className="h-1 w-full" style={{ backgroundColor: statusColor }} />
 
-        {/* Barcode card */}
-        <div className="bg-surface rounded-xl border border-neutral-200 shadow-xs mb-4 p-6 flex flex-col items-center">
-          <div className="mb-5">
-            <Logo height={32} />
-          </div>
-          <Barcode
-            value={shipment.tracking_number}
-            width={1.5}
-            height={56}
-            displayValue={false}
-            background="#ffffff"
-            lineColor="#111111"
-          />
-          <p className="mt-2 font-mono text-sm text-neutral-500">{shipment.tracking_number}</p>
-        </div>
-
-        {/* Shipper */}
-        <SectionCard title="Shipper Information">
-          <InfoRow label="Name"    value={shipment.shipper_name} />
-          <InfoRow label="Address" value={shipment.shipper_address} />
-          <InfoRow label="Phone"   value={shipment.shipper_phone} accent />
-          <InfoRow label="Email"   value={shipment.shipper_email} />
-        </SectionCard>
-
-        {/* Receiver */}
-        <SectionCard title="Receiver Information">
-          <InfoRow label="Name"    value={shipment.receiver_name} />
-          <InfoRow label="Address" value={shipment.receiver_address} />
-          <InfoRow label="Phone"   value={shipment.receiver_phone} accent />
-          <InfoRow label="Email"   value={shipment.receiver_email} />
-        </SectionCard>
-
-        {/* Package */}
-        <SectionCard title="Package Details">
-          <InfoRow label="Type"         value={shipment.package_type} />
-          <InfoRow label="Weight"       value={shipment.weight ? `${shipment.weight} kg` : null} />
-          <InfoRow label="Dimensions"   value={shipment.dimensions} />
-          <InfoRow label="Origin"       value={shipment.origin} />
-          <InfoRow label="Destination"  value={shipment.destination} />
-          {shipment.estimated_delivery && (
-            <InfoRow
-              label="Est. Delivery"
-              value={new Date(shipment.estimated_delivery).toLocaleDateString('en-GB', {
-                day: 'numeric', month: 'long', year: 'numeric',
-              })}
-            />
-          )}
-          {shipment.description && (
-            <InfoRow label="Description" value={shipment.description} />
-          )}
-        </SectionCard>
-
-        {/* Status banner */}
-        <div
-          className="rounded-xl px-5 py-4 text-center mb-4"
-          style={{ backgroundColor: statusColor }}
-        >
-          <p className="text-sm font-semibold uppercase tracking-widest text-white">
-            Shipment Status: {statusLabel}
-          </p>
-        </div>
-
-        {/* Live location map */}
-        {shipment.current_lat != null && shipment.current_lng != null && (
-          <div className="bg-surface rounded-xl border border-neutral-200 shadow-xs overflow-hidden mb-4">
-            <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50 flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
-              </span>
-              <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-500">Live Package Location</h3>
+          <div className="px-6 py-5">
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div>
+                <p className="text-xs text-neutral-400 uppercase tracking-wider mb-1">Current Status</p>
+                <div className="flex items-center gap-2">
+                  <span
+                    className="inline-block h-2.5 w-2.5 rounded-full"
+                    style={{ backgroundColor: statusColor }}
+                  />
+                  <span className="text-xl font-bold text-primary">{statusLabel}</span>
+                </div>
+              </div>
+              {shipment.estimated_delivery && (
+                <div className="text-right">
+                  <p className="text-xs text-neutral-400 uppercase tracking-wider mb-1">Est. Delivery</p>
+                  <div className="flex items-center gap-1.5 justify-end">
+                    <Clock size={14} className="text-secondary" />
+                    <span className="text-sm font-semibold text-primary">
+                      {new Date(shipment.estimated_delivery).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="h-72 w-full">
-              <MapWidget lat={shipment.current_lat} lng={shipment.current_lng} className="h-full w-full rounded-none border-0" />
+
+            {/* Progress steps — only for standard statuses */}
+            {step >= 0 && !isTerminal && (
+              <div className="mt-5">
+                <div className="flex items-center gap-0">
+                  {STEP_LABELS.map((label, i) => {
+                    const done = i < step;
+                    const current = i === step;
+                    return (
+                      <div key={label} className="flex-1 flex flex-col items-center gap-1.5">
+                        <div className="relative w-full flex items-center">
+                          {/* Left connector */}
+                          {i > 0 && (
+                            <div className={`flex-1 h-0.5 ${done || current ? 'bg-secondary' : 'bg-neutral-200'}`} />
+                          )}
+                          <div
+                            className={`h-5 w-5 shrink-0 rounded-full flex items-center justify-center border-2 z-10 transition-colors duration-200 ${
+                              done
+                                ? 'bg-secondary border-secondary'
+                                : current
+                                ? 'bg-white border-secondary'
+                                : 'bg-white border-neutral-300'
+                            }`}
+                          >
+                            {done && <CheckCircle size={12} weight="fill" className="text-primary" />}
+                            {current && <div className="h-2 w-2 rounded-full bg-secondary" />}
+                          </div>
+                          {/* Right connector */}
+                          {i < STEP_LABELS.length - 1 && (
+                            <div className={`flex-1 h-0.5 ${done ? 'bg-secondary' : 'bg-neutral-200'}`} />
+                          )}
+                        </div>
+                        <span className={`text-[9px] uppercase tracking-wide text-center leading-tight px-1 ${current ? 'font-bold text-primary' : done ? 'text-secondary' : 'text-neutral-400'}`}>
+                          {label}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Terminal status pill */}
+            {isTerminal && (
+              <div className="mt-4 flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-white" style={{ backgroundColor: statusColor }}>
+                <span>{statusLabel}</span>
+                {shipment.status === 'DELIVERED' && <CheckCircle size={16} weight="fill" />}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ── Price + Barcode row ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Barcode */}
+          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs p-5 flex flex-col items-center justify-center">
+            <Barcode
+              value={shipment.tracking_number}
+              width={1.4}
+              height={52}
+              displayValue={false}
+              background="#ffffff"
+              lineColor="#111111"
+            />
+            <p className="mt-2 font-mono text-xs text-neutral-400">{shipment.tracking_number}</p>
+          </div>
+
+          {/* Price + quick facts */}
+          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs p-5 flex flex-col justify-between gap-4">
+            {shipment.delivery_price != null ? (
+              <div className="flex flex-col items-center justify-center flex-1 text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-secondary/10 mb-3">
+                  <Tag size={24} weight="duotone" className="text-secondary" />
+                </div>
+                <p className="text-xs text-neutral-400 uppercase tracking-wider mb-1">Delivery Price</p>
+                <p className="text-3xl font-bold text-primary">
+                  £{shipment.delivery_price.toFixed(2)}
+                </p>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center flex-1 text-center text-neutral-300">
+                <Package size={32} weight="duotone" className="mb-2" />
+                <p className="text-xs uppercase tracking-wider">Price not set</p>
+              </div>
+            )}
+            <div className="space-y-1.5 border-t border-neutral-100 pt-3">
+              {shipment.package_type && (
+                <div className="flex justify-between text-xs">
+                  <span className="text-neutral-400">Type</span>
+                  <span className="font-medium text-primary">{shipment.package_type}</span>
+                </div>
+              )}
+              {shipment.weight && (
+                <div className="flex justify-between text-xs">
+                  <span className="text-neutral-400">Weight</span>
+                  <span className="font-medium text-primary">{shipment.weight} kg</span>
+                </div>
+              )}
+              {shipment.origin && shipment.destination && (
+                <div className="flex items-center gap-1.5 text-xs text-neutral-500 pt-1">
+                  <span className="font-medium text-primary truncate max-w-[80px]">{shipment.origin}</span>
+                  <ArrowRight size={11} className="text-secondary shrink-0" />
+                  <span className="font-medium text-primary truncate max-w-[80px]">{shipment.destination}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* ── Shipper / Receiver ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
+            <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Shipper</p>
+            </div>
+            <div className="px-5 py-1">
+              <InfoRow label="Name"    value={shipment.shipper_name} />
+              <InfoRow label="Address" value={shipment.shipper_address} />
+              <InfoRow label="Phone"   value={shipment.shipper_phone} />
+              <InfoRow label="Email"   value={shipment.shipper_email} />
+            </div>
+          </div>
+          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
+            <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Receiver</p>
+            </div>
+            <div className="px-5 py-1">
+              <InfoRow label="Name"    value={shipment.receiver_name} />
+              <InfoRow label="Address" value={shipment.receiver_address} />
+              <InfoRow label="Phone"   value={shipment.receiver_phone} />
+              <InfoRow label="Email"   value={shipment.receiver_email} />
+            </div>
+          </div>
+        </div>
+
+        {/* ── Package details ── */}
+        {shipment.description && (
+          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
+            <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Package Details</p>
+            </div>
+            <div className="px-5 py-1">
+              <InfoRow label="Contents" value={shipment.description} />
+              {shipment.dimensions && <InfoRow label="Dimensions" value={shipment.dimensions} />}
             </div>
           </div>
         )}
 
-        {/* Timeline */}
-        {sortedEvents.length > 0 ? (
-          <div className="bg-surface rounded-xl border border-neutral-200 shadow-xs overflow-hidden">
-            <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50">
-              <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-500">Tracking History</h3>
+        {/* ── Live map ── */}
+        {shipment.current_lat != null && shipment.current_lng != null && (
+          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
+            <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50 flex items-center gap-2.5">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+              </span>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Live Package Location</p>
             </div>
-            <div className="divide-y divide-neutral-100">
+            <div className="h-64 w-full">
+              <MapWidget
+                lat={shipment.current_lat}
+                lng={shipment.current_lng}
+                className="h-full w-full rounded-none border-0"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* ── Timeline ── */}
+        <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
+          <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Tracking History</p>
+          </div>
+
+          {sortedEvents.length === 0 ? (
+            <div className="px-5 py-10 text-center">
+              <Package size={28} className="mx-auto mb-2 text-neutral-300" weight="duotone" />
+              <p className="text-sm text-neutral-400">No tracking events yet.</p>
+            </div>
+          ) : (
+            <div className="px-5 py-4 space-y-0">
               {sortedEvents.map((event, idx) => {
                 const dotColor = idx === 0 ? '#FECE14' : (STATUS_COLORS[event.status] || '#a1a1aa');
+                const isFirst = idx === 0;
                 return (
-                  <div key={event.id} className="flex gap-4 px-5 py-4">
-                    {/* Timeline spine */}
-                    <div className="flex flex-col items-center pt-1 shrink-0">
+                  <div key={event.id} className={`flex gap-4 pb-5 relative ${isFirst ? 'opacity-100' : 'opacity-70'}`}>
+                    {/* Spine */}
+                    <div className="flex flex-col items-center shrink-0 w-4">
                       <div
-                        className="h-2.5 w-2.5 rounded-full ring-2 ring-offset-1 ring-white shrink-0"
+                        className="h-3 w-3 rounded-full shrink-0 mt-0.5 ring-2 ring-white ring-offset-1"
                         style={{ backgroundColor: dotColor }}
                       />
                       {idx < sortedEvents.length - 1 && (
-                        <div className="mt-1 w-px flex-1 bg-neutral-200 min-h-6" />
+                        <div className="w-px flex-1 bg-neutral-150 mt-1.5" style={{ background: 'repeating-linear-gradient(to bottom, #e5e7eb 0, #e5e7eb 4px, transparent 4px, transparent 8px)' }} />
                       )}
                     </div>
 
@@ -172,24 +301,21 @@ export default function TrackResult({ shipment }: Props) {
                     <div className="flex-1 min-w-0 pb-1">
                       <div className="flex flex-wrap items-center gap-2 mb-1">
                         <span
-                          className="inline-block rounded-full px-2.5 py-0.5 text-[11px] font-semibold text-white"
+                          className="rounded-full px-2 py-0.5 text-[10px] font-bold text-white uppercase tracking-wide"
                           style={{ backgroundColor: STATUS_COLORS[event.status] || '#71717a' }}
                         >
                           {STATUS_LABELS[event.status] || event.status}
                         </span>
-                        <span className="text-xs text-neutral-400">
-                          {new Date(event.event_timestamp).toLocaleDateString('en-GB', {
-                            day: 'numeric', month: 'short', year: 'numeric',
-                          })}{' '}
-                          {new Date(event.event_timestamp).toLocaleTimeString('en-GB', {
-                            hour: '2-digit', minute: '2-digit',
-                          })}
+                        <span className="text-[11px] text-neutral-400">
+                          {new Date(event.event_timestamp).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                          {' · '}
+                          {new Date(event.event_timestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
                         </span>
                       </div>
                       <p className="text-sm text-primary font-medium">{event.description}</p>
                       {event.location && (
-                        <div className="flex items-center gap-1 mt-0.5">
-                          <MapPin size={12} className="text-secondary shrink-0" />
+                        <div className="flex items-center gap-1 mt-1">
+                          <MapPin size={11} className="text-secondary shrink-0" />
                           <span className="text-xs text-neutral-400">{event.location}</span>
                         </div>
                       )}
@@ -198,13 +324,14 @@ export default function TrackResult({ shipment }: Props) {
                 );
               })}
             </div>
-          </div>
-        ) : (
-          <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-8 text-center">
-            <Package size={32} className="mx-auto mb-3 text-neutral-300" weight="duotone" />
-            <p className="text-sm text-neutral-500">No tracking events yet. Check back soon.</p>
-          </div>
-        )}
+          )}
+        </div>
+
+        {/* Footer note */}
+        <p className="text-center text-xs text-neutral-400 pb-4">
+          Global Express Shipments · Tracking #{shipment.tracking_number}
+        </p>
+
       </div>
     </div>
   );

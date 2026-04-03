@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
   }
 
-  const { status, current_lat, current_lng, ...rest } = parsed.data;
+  const { status, current_lat, current_lng, delivery_price, ...rest } = parsed.data;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const supabaseAny = supabase as any;
 
@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
       estimated_delivery: rest.estimated_delivery || null,
       current_lat: current_lat ?? null,
       current_lng: current_lng ?? null,
+      delivery_price: delivery_price ?? null,
     })
     .select()
     .single();
@@ -61,6 +62,7 @@ export async function POST(req: NextRequest) {
         tracking_number: generateTrackingNumber(),
         weight: rest.weight ?? null,
         estimated_delivery: rest.estimated_delivery || null,
+        delivery_price: delivery_price ?? null,
       })
       .select()
       .single());

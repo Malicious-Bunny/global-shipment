@@ -3,60 +3,60 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, ShieldCheck, Lightning, Package, Crosshair } from '@phosphor-icons/react';
+import { ArrowRight, ArrowUpRight } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 
 const slides = [
   {
-    line1: 'Delivering Around',
-    line2: 'The World',
-    sub: 'Secure handling and reliable delivery to every corner of the globe.',
+    eyebrow: 'Global Delivery Network',
+    headline: 'Delivering\nAround\nThe World',
+    sub: 'Secure, tracked, on time.',
     cta: 'Track Your Shipment',
     href: '/track',
     image: '/images/hero-container-globe.jpg',
-    imageAlt: 'Global Express Shipments container with logo',
+    imageAlt: 'Global Express Shipments containers',
   },
   {
-    line1: 'Moving In',
-    line2: 'Every Direction',
-    sub: 'Precision cargo logistics by air, sea, road and rail.',
+    eyebrow: 'Air · Sea · Road · Rail',
+    headline: 'Moving In\nEvery\nDirection',
+    sub: 'Precision cargo logistics, every mode.',
     cta: 'Our Services',
     href: '/services',
     image: '/images/fleet-vehicles.jpg',
-    imageAlt: 'Global Express Shipments fleet of delivery vehicles',
+    imageAlt: 'Global Express Shipments fleet',
   },
   {
-    line1: 'Always Ready',
-    line2: 'To Move',
-    sub: 'Live tracking and real-time updates at every stage of your shipment.',
+    eyebrow: 'Live Tracking',
+    headline: 'Always\nReady\nTo Move',
+    sub: 'Real-time updates at every stage.',
     cta: 'Start Tracking',
     href: '/track',
     image: '/images/hero-truck.jpg',
-    imageAlt: 'Global Express Shipments delivery van',
+    imageAlt: 'Global Express Shipments truck',
   },
 ];
 
-const trust = [
-  { Icon: ShieldCheck, value: 'Fully Insured',   label: 'All cargo covered'   },
-  { Icon: Lightning,   value: 'Express 24h',     label: 'Same-day available'  },
-  { Icon: Package,     value: '500+ Delivered',  label: 'Completed shipments' },
-  { Icon: Crosshair,   value: 'Live Tracking',   label: 'Real-time updates'   },
+const stats = [
+  { value: '150+', label: 'Countries' },
+  { value: '500+', label: 'Deliveries' },
+  { value: '24h',  label: 'Express' },
+  { value: '99%',  label: 'On-time Rate' },
 ];
 
 export default function HeroSection() {
-  const [active, setActive]   = useState(0);
-  const [visible, setVisible] = useState(true);
+  const [active, setActive] = useState(0);
+  const [fading, setFading] = useState(false);
   const busy = useRef(false);
 
   const goTo = useCallback((idx: number) => {
     if (idx === active || busy.current) return;
     busy.current = true;
-    setVisible(false);
+    setFading(true);
     setTimeout(() => {
       setActive(idx);
-      setVisible(true);
+      setFading(false);
       busy.current = false;
-    }, 320);
+    }, 280);
   }, [active]);
 
   useEffect(() => {
@@ -67,143 +67,138 @@ export default function HeroSection() {
   const slide = slides[active];
 
   return (
-    <section className="relative flex flex-col overflow-hidden bg-primary min-h-[640px] sm:min-h-[680px] lg:min-h-[740px]">
+    <section className="relative grid grid-cols-1 lg:grid-cols-2 min-h-[640px] lg:min-h-[700px] overflow-hidden bg-primary">
 
-      {/* Background images — CSS crossfade (no remount flash) */}
-      {slides.map((s, i) => (
-        <div
-          key={s.image}
-          className={cn(
-            'absolute inset-0 z-0 transition-opacity duration-700',
-            i === active ? 'opacity-100' : 'opacity-0'
-          )}
-        >
-          <Image
-            src={s.image}
-            alt={s.imageAlt}
-            fill
-            priority={i === 0}
-            className="object-cover object-center"
-            sizes="100vw"
-          />
+      {/* ── Left: Text panel ── */}
+      <div className="flex flex-col justify-between px-6 sm:px-10 lg:px-14 py-12 lg:py-16 z-10 relative">
+
+        {/* Top: eyebrow */}
+        <div className="flex items-center gap-3">
+          <span className="h-px w-6 bg-secondary" />
+          <span
+            className={cn(
+              'text-[11px] tracking-[0.22em] uppercase font-medium text-secondary transition-opacity duration-280',
+              fading && 'opacity-0'
+            )}
+          >
+            {slide.eyebrow}
+          </span>
         </div>
-      ))}
 
-      {/* Dark gradient overlays */}
-      <div className="absolute inset-0 z-[1] bg-linear-to-r from-black/88 via-black/62 to-black/20" />
-      <div className="absolute inset-0 z-[1] bg-linear-to-t from-black/55 via-transparent to-transparent" />
-
-      {/* Subtle grid texture */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[2] opacity-[0.025]"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right,white 1px,transparent 1px),linear-gradient(to bottom,white 1px,transparent 1px)',
-          backgroundSize: '48px 48px',
-        }}
-      />
-
-      {/* ── Main content ── */}
-      <div className="relative z-10 flex flex-1 items-center w-full">
-        <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="max-w-2xl">
-
-            {/* Live ping badge */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-secondary/40 bg-secondary/15 px-3.5 py-1.5 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
-              </span>
-              <span className="text-xs font-semibold text-secondary tracking-widest uppercase">
-                Global Logistics
-              </span>
-            </div>
-
-            {/* Headline — fade on slide change */}
+        {/* Middle: headline */}
+        <div className="py-10 lg:py-0 lg:flex lg:flex-1 lg:items-center">
+          <div>
             <h1
               className={cn(
-                'mb-5 text-5xl sm:text-6xl lg:text-7xl font-semibold text-white leading-[1.05] tracking-tight transition-opacity duration-300',
-                !visible && 'opacity-0'
+                'text-[clamp(3rem,8vw,6.5rem)] font-bold leading-[0.92] tracking-[-0.03em] text-white whitespace-pre-line transition-opacity duration-280',
+                fading && 'opacity-0'
               )}
-              style={{ fontFamily: 'var(--font-display)' }}
             >
-              <span className="block">{slide.line1}</span>
-              <span className="block text-secondary">{slide.line2}</span>
+              {slide.headline.split('\n').map((line, i) => (
+                <span key={i} className={`block ${i === 1 ? 'text-secondary' : ''}`}>{line}</span>
+              ))}
             </h1>
 
-            {/* Subheading */}
-            <p
-              className={cn(
-                'mb-8 text-base sm:text-lg text-white/70 max-w-sm leading-relaxed transition-opacity duration-300',
-                !visible && 'opacity-0'
-              )}
-            >
+            <p className={cn(
+              'mt-6 text-sm text-white/50 tracking-wide max-w-[22rem] transition-opacity duration-280',
+              fading && 'opacity-0'
+            )}>
               {slide.sub}
             </p>
 
-            {/* CTAs */}
-            <div
-              className={cn(
-                'flex flex-wrap gap-3 transition-opacity duration-300',
-                !visible && 'opacity-0'
-              )}
-            >
+            <div className={cn(
+              'mt-8 flex flex-wrap gap-3 transition-opacity duration-280',
+              fading && 'opacity-0'
+            )}>
               <Link
                 href={slide.href}
-                className="inline-flex items-center gap-2 rounded-lg bg-secondary px-5 py-3 text-sm font-semibold text-primary shadow-lg shadow-secondary/40 hover:bg-secondary/85 transition-all duration-200 cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-lg bg-secondary px-5 py-2.5 text-sm font-semibold text-primary hover:bg-secondary/85 transition-colors duration-200 cursor-pointer"
               >
                 {slide.cta}
-                <ArrowRight size={16} weight="bold" />
+                <ArrowRight size={15} weight="bold" />
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/8 px-5 py-3 text-sm font-semibold text-white hover:bg-white/15 transition-all duration-200 cursor-pointer backdrop-blur-sm"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-white/80 hover:border-white/35 hover:text-white transition-colors duration-200 cursor-pointer"
               >
                 Contact Us
+                <ArrowUpRight size={15} />
               </Link>
             </div>
-
           </div>
         </div>
-      </div>
 
-      {/* ── Trust strip ── */}
-      <div className="relative z-10 border-t border-white/8">
-        <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-5">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-4">
-            {trust.map(({ Icon, value, label }) => (
-              <div key={value} className="flex items-center gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/8 border border-white/10 backdrop-blur-sm">
-                  <Icon size={18} weight="duotone" className="text-secondary" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-white leading-tight">{value}</p>
-                  <p className="text-[11px] text-white/45 leading-tight">{label}</p>
-                </div>
+        {/* Bottom: stats + controls */}
+        <div className="flex flex-col gap-5">
+          {/* Stats row */}
+          <div className="grid grid-cols-4 gap-px border border-white/8 rounded-xl overflow-hidden">
+            {stats.map(({ value, label }) => (
+              <div key={label} className="flex flex-col items-center py-3 px-2 bg-white/4">
+                <span className="text-lg font-bold text-white leading-none">{value}</span>
+                <span className="text-[10px] text-white/40 mt-0.5 uppercase tracking-wider">{label}</span>
               </div>
             ))}
           </div>
+
+          {/* Slide dots */}
+          <div className="flex items-center justify-between">
+            <div className="flex gap-1.5">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  aria-label={`Slide ${i + 1}`}
+                  className={cn(
+                    'h-0.5 rounded-full transition-all duration-400 cursor-pointer',
+                    i === active ? 'w-8 bg-secondary' : 'w-3 bg-white/25 hover:bg-white/50'
+                  )}
+                />
+              ))}
+            </div>
+            <span className="text-[11px] text-white/25 tabular-nums tracking-widest">
+              {String(active + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* ── Bottom bar: slide progress + counter ── */}
-      <div className="relative z-10 mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 pb-5 flex items-center justify-between">
-        <div className="flex gap-2 items-center">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              className={cn(
-                'h-0.5 rounded-full transition-all duration-500 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50',
-                i === active ? 'w-10 bg-secondary' : 'w-4 bg-white/30 hover:bg-white/55'
-              )}
+      {/* ── Right: Image panel ── */}
+      <div className="relative hidden lg:block">
+        {slides.map((s, i) => (
+          <div
+            key={s.image}
+            className={cn(
+              'absolute inset-0 transition-opacity duration-700',
+              i === active ? 'opacity-100' : 'opacity-0'
+            )}
+          >
+            <Image
+              src={s.image}
+              alt={s.imageAlt}
+              fill
+              priority={i === 0}
+              className="object-cover object-center"
+              sizes="50vw"
             />
-          ))}
-        </div>
-        <span className="text-xs font-medium text-white/35 tabular-nums tracking-widest">
-          {String(active + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
-        </span>
+            {/* Subtle left fade to blend with text panel */}
+            <div className="absolute inset-0 bg-linear-to-r from-primary/60 via-transparent to-transparent" />
+          </div>
+        ))}
+
+        {/* Yellow accent bar on the right edge */}
+        <div className="absolute top-0 right-0 h-full w-1 bg-secondary z-10" />
+      </div>
+
+      {/* Mobile: image behind text */}
+      <div className="absolute inset-0 lg:hidden">
+        {slides.map((s, i) => (
+          <div
+            key={`mob-${s.image}`}
+            className={cn('absolute inset-0 transition-opacity duration-700', i === active ? 'opacity-100' : 'opacity-0')}
+          >
+            <Image src={s.image} alt={s.imageAlt} fill priority={i === 0} className="object-cover object-center opacity-20" sizes="100vw" />
+          </div>
+        ))}
       </div>
 
     </section>

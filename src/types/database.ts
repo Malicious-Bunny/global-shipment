@@ -31,6 +31,7 @@ export interface Shipment {
   estimated_delivery: string | null;
   current_lat: number | null;
   current_lng: number | null;
+  delivery_price: number | null;
   created_at: string;
   updated_at: string;
 }
