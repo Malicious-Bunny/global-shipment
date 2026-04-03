@@ -100,7 +100,7 @@ export default function HeroSection() {
             </h1>
 
             <p className={cn(
-              'mt-6 text-sm text-white/50 tracking-wide max-w-[22rem] transition-opacity duration-280',
+              'mt-6 text-sm text-white/75 tracking-wide max-w-[22rem] transition-opacity duration-280',
               fading && 'opacity-0'
             )}>
               {slide.sub}
@@ -135,7 +135,7 @@ export default function HeroSection() {
             {stats.map(({ value, label }) => (
               <div key={label} className="flex flex-col items-center py-3 px-2 bg-white/4">
                 <span className="text-lg font-bold text-white leading-none">{value}</span>
-                <span className="text-[10px] text-white/40 mt-0.5 uppercase tracking-wider">{label}</span>
+                <span className="text-[10px] text-white/60 mt-0.5 uppercase tracking-wider">{label}</span>
               </div>
             ))}
           </div>
@@ -155,7 +155,7 @@ export default function HeroSection() {
                 />
               ))}
             </div>
-            <span className="text-[11px] text-white/25 tabular-nums tracking-widest">
+            <span className="text-[11px] text-white/50 tabular-nums tracking-widest">
               {String(active + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
             </span>
           </div>
