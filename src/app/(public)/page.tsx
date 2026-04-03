@@ -6,7 +6,6 @@ import {
   ArrowUpRight, ArrowRight,
 } from '@phosphor-icons/react/dist/ssr';
 import HeroSection from '@/components/public/HeroSection';
-import TrackForm from '@/components/public/TrackForm';
 
 const services = [
   { Icon: Boat,     slug: 'ocean-freight', title: 'Ocean Freight', desc: 'Cost-effective sea freight for large volume shipments worldwide.',        image: '/images/about-container.jpg' },
@@ -42,7 +41,6 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <TrackForm />
 
       {/* Services */}
       <section className="py-24 bg-white">
