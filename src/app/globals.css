@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* ─── Fonts ─────────────────────────────────────── */
-  --font-sans:    var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
-  --font-mono:    var(--font-ibm-plex-mono), ui-monospace, 'SFMono-Regular', monospace;
+  /* ─── Fonts (Premium — Inter + JetBrains Mono) ──── */
+  --font-sans:    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    var(--font-jetbrains-mono), ui-monospace, 'SFMono-Regular', monospace;
 
   /* ─── Professional Design System — Brand Tokens ─── */
   --color-primary:   #000000;

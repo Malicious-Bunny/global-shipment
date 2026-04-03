@@ -22,38 +22,38 @@ const contactItems = [
   {
     Icon: Clock,
     title: 'Office Hours',
-    lines: ['Monday – Friday: 8:00 AM – 6:00 PM', 'Saturday: 9:00 AM – 1:00 PM'],
+    lines: ['Mon – Fri: 8:00 AM – 6:00 PM', 'Saturday: 9:00 AM – 1:00 PM'],
   },
 ];
 
 export default function ContactPage() {
   return (
     <>
-      <div className="bg-neutral-50 border-b border-neutral-200 py-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="h-1 w-10 bg-secondary rounded-full mb-5" />
-          <h1 className="text-4xl sm:text-5xl font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>
+      <div className="bg-neutral-50 border-b border-neutral-200 py-16">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <div className="flex items-center gap-2.5 mb-4">
+            <span className="h-px w-5 bg-secondary" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">Reach Us</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-black text-primary" style={{ letterSpacing: '-0.03em' }}>
             Contact Us
           </h1>
-          <p className="mt-2 text-neutral-500">We are here to help with all your shipping needs</p>
+          <p className="mt-3 text-neutral-500">We are here to help with all your shipping needs.</p>
         </div>
       </div>
 
       <div className="mx-auto max-w-3xl px-4 sm:px-6 py-16">
-        <h2 className="text-center text-2xl font-semibold text-primary mb-10" style={{ fontFamily: 'var(--font-display)' }}>
-          Get In Touch
-        </h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {contactItems.map(({ Icon, title, lines }) => (
             <div
               key={title}
-              className="flex gap-4 rounded-xl border border-neutral-200 bg-surface p-5 shadow-xs"
+              className="flex gap-4 rounded-2xl border border-neutral-200 bg-white p-6 shadow-xs"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary/10">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-secondary/10">
                 <Icon size={20} weight="duotone" className="text-secondary" />
               </div>
               <div>
-                <h3 className="mb-1.5 font-semibold text-primary text-sm" style={{ fontFamily: 'var(--font-display)' }}>{title}</h3>
+                <h3 className="mb-1.5 font-bold text-primary text-sm">{title}</h3>
                 {lines.map((line) => (
                   <p key={line} className="text-sm text-neutral-500 leading-relaxed">{line}</p>
                 ))}
