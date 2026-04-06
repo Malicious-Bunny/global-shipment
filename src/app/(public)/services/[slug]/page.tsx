@@ -143,22 +143,22 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   return (
     <>
       {/* Banner */}
-      <div className="bg-neutral-50 border-b border-neutral-200 py-14">
+      <div className="bg-background border-b border-neutral-200 py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <Link
             href="/services"
-            className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-primary transition-colors mb-6 cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-foreground transition-colors mb-6 cursor-pointer"
           >
             <ArrowLeft size={13} />
             All Services
           </Link>
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary">
-              <Icon size={24} weight="duotone" className="text-primary" />
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary">
+              <Icon size={24} weight="duotone" className="text-primary-foreground" />
             </div>
             <div>
-              <div className="h-1 w-8 bg-secondary rounded-full mb-2" />
-              <h1 className="text-4xl sm:text-5xl font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>
+              <div className="h-1 w-8 bg-primary rounded-full mb-2" />
+              <h1 className="text-4xl sm:text-5xl font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
                 {title}
               </h1>
             </div>
@@ -188,24 +188,24 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
         {/* Features + Suitable for */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <div className="rounded-xl border border-neutral-200 bg-surface p-5 shadow-xs">
+          <div className="rounded-xl border border-neutral-200 bg-background p-5 shadow-xs">
             <h2 className="text-xs font-semibold uppercase tracking-widest text-neutral-400 mb-4">What's Included</h2>
             <ul className="space-y-2.5">
               {features.map((f) => (
                 <li key={f} className="flex items-start gap-2.5">
-                  <CheckCircle size={16} weight="duotone" className="text-secondary shrink-0 mt-0.5" />
+                  <CheckCircle size={16} weight="duotone" className="text-muted-foreground shrink-0 mt-0.5" />
                   <span className="text-sm text-neutral-600">{f}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="rounded-xl border border-neutral-200 bg-surface p-5 shadow-xs">
+          <div className="rounded-xl border border-neutral-200 bg-background p-5 shadow-xs">
             <h2 className="text-xs font-semibold uppercase tracking-widest text-neutral-400 mb-4">Suitable For</h2>
             <ul className="space-y-2.5">
               {suitable.map((s) => (
                 <li key={s} className="flex items-start gap-2.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-secondary shrink-0 mt-1.5" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0 mt-1.5" />
                   <span className="text-sm text-neutral-600">{s}</span>
                 </li>
               ))}
@@ -221,7 +221,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <p className="text-sm text-white/60 mb-5">Get in touch and we'll handle the rest.</p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-lg bg-secondary px-5 py-2.5 text-sm font-semibold text-primary hover:bg-secondary/90 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary-foreground px-5 py-2.5 text-sm font-semibold text-primary hover:bg-primary-foreground/90 transition-colors cursor-pointer"
           >
             Contact Us
             <ArrowRight size={15} />
@@ -233,7 +233,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           {prev ? (
             <Link
               href={`/services/${prev.slug}`}
-              className="flex items-center gap-2 text-sm text-neutral-500 hover:text-primary transition-colors cursor-pointer"
+              className="flex items-center gap-2 text-sm text-neutral-500 hover:text-foreground transition-colors cursor-pointer"
             >
               <ArrowLeft size={14} />
               {prev.title}
@@ -242,7 +242,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           {next ? (
             <Link
               href={`/services/${next.slug}`}
-              className="flex items-center gap-2 text-sm text-neutral-500 hover:text-primary transition-colors cursor-pointer"
+              className="flex items-center gap-2 text-sm text-neutral-500 hover:text-foreground transition-colors cursor-pointer"
             >
               {next.title}
               <ArrowRight size={14} />

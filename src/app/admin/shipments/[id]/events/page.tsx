@@ -33,7 +33,7 @@ export default async function EventsPage({ params }: Props) {
       <div className="mb-6">
         <Link
           href={`/admin/shipments/${id}`}
-          className="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-primary transition-colors cursor-pointer mb-3"
+          className="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-foreground transition-colors cursor-pointer mb-3"
         >
           <ArrowLeft size={14} />
           Back to Shipment
@@ -41,7 +41,7 @@ export default async function EventsPage({ params }: Props) {
 
         <div className="flex flex-wrap items-center gap-3">
           <div>
-            <h1 className="text-xl font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>
+            <h1 className="text-xl font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
               Tracking Events
             </h1>
             <p className="text-sm font-mono text-neutral-400 mt-0.5">{shipment.tracking_number}</p>

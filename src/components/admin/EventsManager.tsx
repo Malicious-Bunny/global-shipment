@@ -24,8 +24,8 @@ function Input({ error, ...props }: React.InputHTMLAttributes<HTMLInputElement> 
     <input
       {...props}
       className={cn(
-        'w-full rounded-lg border bg-surface px-3.5 py-2.5 text-sm text-primary placeholder:text-neutral-400 transition-colors',
-        'focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary',
+        'w-full rounded-lg border bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-neutral-400 transition-colors',
+        'focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary',
         error ? 'border-danger/60 bg-danger/5' : 'border-neutral-200 hover:border-neutral-300',
       )}
     />
@@ -82,8 +82,8 @@ export default function EventsManager({ shipmentId, initialEvents }: Props) {
   return (
     <div className="space-y-4">
       {/* Add Event Form */}
-      <div className="bg-surface rounded-xl border border-neutral-200 shadow-xs overflow-hidden">
-        <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50 flex items-center gap-2">
+      <div className="bg-background rounded-xl border border-neutral-200 shadow-xs overflow-hidden">
+        <div className="px-5 py-3 border-b border-neutral-100 bg-muted flex items-center gap-2">
           <Plus size={15} weight="bold" className="text-neutral-500" />
           <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-500">Add Tracking Event</h3>
         </div>
@@ -106,8 +106,8 @@ export default function EventsManager({ shipmentId, initialEvents }: Props) {
                       id="ev-status"
                       {...field}
                       className={cn(
-                        'w-full rounded-lg border bg-surface px-3.5 py-2.5 text-sm text-primary appearance-none transition-colors',
-                        'focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary',
+                        'w-full rounded-lg border bg-background px-3.5 py-2.5 text-sm text-foreground appearance-none transition-colors',
+                        'focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary',
                         errors.status ? 'border-danger/60 bg-danger/5' : 'border-neutral-200 hover:border-neutral-300',
                       )}
                     >
@@ -138,7 +138,7 @@ export default function EventsManager({ shipmentId, initialEvents }: Props) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="inline-flex h-[42px] items-center justify-center gap-2 rounded-lg bg-secondary px-5 text-sm font-semibold text-primary hover:bg-secondary/85 disabled:opacity-60 transition-colors cursor-pointer"
+                  className="inline-flex h-[42px] items-center justify-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/85 disabled:opacity-60 transition-colors cursor-pointer"
                 >
                   {loading ? <CircleNotch size={16} className="animate-spin" /> : <Plus size={15} weight="bold" />}
                   Add Event
@@ -166,8 +166,8 @@ export default function EventsManager({ shipmentId, initialEvents }: Props) {
       </div>
 
       {/* Events Table */}
-      <div className="bg-surface rounded-xl border border-neutral-200 shadow-xs overflow-hidden">
-        <div className="px-5 py-3.5 border-b border-neutral-100 bg-neutral-50">
+      <div className="bg-background rounded-xl border border-neutral-200 shadow-xs overflow-hidden">
+        <div className="px-5 py-3.5 border-b border-neutral-100 bg-muted">
           <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
             Tracking History
             <span className="ml-2 rounded-full bg-neutral-200 px-2 py-0.5 text-[10px] font-semibold text-neutral-600">
@@ -179,7 +179,7 @@ export default function EventsManager({ shipmentId, initialEvents }: Props) {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-neutral-100 bg-neutral-50 text-left">
+              <tr className="border-b border-neutral-100 bg-muted text-left">
                 {['Date & Time', 'Status', 'Location', 'Description', ''].map((col) => (
                   <th key={col} className="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-neutral-400">
                     {col}
@@ -187,9 +187,9 @@ export default function EventsManager({ shipmentId, initialEvents }: Props) {
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-100">
+            <tbody className="divide-y divide-border">
               {events.map((event) => (
-                <tr key={event.id} className="hover:bg-neutral-50 transition-colors">
+                <tr key={event.id} className="hover:bg-muted/50 transition-colors">
                   <td className="whitespace-nowrap px-4 py-3 text-xs text-neutral-400 font-mono">
                     {new Date(event.event_timestamp).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                     {' '}
@@ -241,8 +241,8 @@ export default function EventsManager({ shipmentId, initialEvents }: Props) {
       {deleteId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setDeleteId(null)} aria-hidden="true" />
-          <div className="relative bg-surface rounded-xl border border-neutral-200 shadow-xl max-w-sm w-full p-6">
-            <h3 className="text-base font-semibold text-primary mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+          <div className="relative bg-background rounded-xl border border-neutral-200 shadow-xl max-w-sm w-full p-6">
+            <h3 className="text-base font-semibold text-foreground mb-2" style={{ fontFamily: 'var(--font-display)' }}>
               Delete Event
             </h3>
             <p className="text-sm text-neutral-500 mb-6">
@@ -252,7 +252,7 @@ export default function EventsManager({ shipmentId, initialEvents }: Props) {
               <button
                 onClick={() => setDeleteId(null)}
                 disabled={deleteLoading}
-                className="rounded-lg border border-neutral-200 bg-surface px-4 py-2 text-sm font-medium text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer"
+                className="rounded-lg border border-neutral-200 bg-background px-4 py-2 text-sm font-medium text-neutral-600 hover:bg-muted/50 transition-colors cursor-pointer"
               >
                 Cancel
               </button>

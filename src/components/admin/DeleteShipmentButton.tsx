@@ -46,15 +46,15 @@ export default function DeleteShipmentButton({ shipmentId, trackingNumber }: Pro
             onClick={() => !loading && setOpen(false)}
             aria-hidden="true"
           />
-          <div className="relative bg-surface rounded-xl border border-neutral-200 shadow-xl max-w-sm w-full p-6">
+          <div className="relative bg-background rounded-xl border border-neutral-200 shadow-xl max-w-sm w-full p-6">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-danger/10 mb-4">
               <Trash size={18} className="text-danger" />
             </div>
-            <h3 className="text-base font-semibold text-primary mb-1" style={{ fontFamily: 'var(--font-display)' }}>
+            <h3 className="text-base font-semibold text-foreground mb-1" style={{ fontFamily: 'var(--font-display)' }}>
               Delete Shipment
             </h3>
             <p className="text-sm text-neutral-500 mb-1">
-              Are you sure you want to delete <span className="font-mono font-semibold text-primary">{trackingNumber}</span>?
+              Are you sure you want to delete <span className="font-mono font-semibold text-foreground">{trackingNumber}</span>?
             </p>
             <p className="text-xs text-neutral-400 mb-5">
               This will permanently remove the shipment and all its tracking events.
@@ -71,7 +71,7 @@ export default function DeleteShipmentButton({ shipmentId, trackingNumber }: Pro
               <button
                 onClick={() => setOpen(false)}
                 disabled={loading}
-                className="rounded-lg border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-600 hover:bg-neutral-50 disabled:opacity-50 transition-colors cursor-pointer"
+                className="rounded-lg border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-600 hover:bg-muted/50 disabled:opacity-50 transition-colors cursor-pointer"
               >
                 Cancel
               </button>

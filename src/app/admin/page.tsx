@@ -56,13 +56,13 @@ export default function AdminLoginPage() {
 
         {/* Hero copy */}
         <div className="relative">
-          <div className="h-1 w-10 bg-secondary rounded-full mb-7" />
+          <div className="h-1 w-10 bg-primary-foreground rounded-full mb-7" />
           <h2
             className="text-4xl font-bold text-white leading-[1.1] mb-5"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Manage your<br />
-            <span className="text-secondary">shipments</span><br />
+            <span className="text-primary-foreground">shipments</span><br />
             worldwide.
           </h2>
           <p className="text-neutral-400 text-sm leading-relaxed max-w-xs mb-8">
@@ -72,8 +72,8 @@ export default function AdminLoginPage() {
           <ul className="space-y-3">
             {features.map(({ Icon, text }) => (
               <li key={text} className="flex items-center gap-3">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-secondary/15 border border-secondary/20">
-                  <Icon size={14} weight="duotone" className="text-secondary" />
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/15 border border-white/20">
+                  <Icon size={14} weight="duotone" className="text-primary-foreground" />
                 </div>
                 <span className="text-sm text-neutral-400">{text}</span>
               </li>
@@ -88,7 +88,7 @@ export default function AdminLoginPage() {
       </div>
 
       {/* ── Right: form panel ── */}
-      <div className="flex flex-1 flex-col items-center justify-center bg-neutral-50 p-6">
+      <div className="flex flex-1 flex-col items-center justify-center bg-background p-6">
         <div className="w-full max-w-sm">
 
           {/* Mobile logo */}
@@ -97,7 +97,7 @@ export default function AdminLoginPage() {
           </div>
 
           <h1
-            className="text-2xl font-bold text-primary mb-1"
+            className="text-2xl font-bold text-foreground mb-1"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Admin Login
@@ -124,7 +124,7 @@ export default function AdminLoginPage() {
                 required
                 autoComplete="email"
                 placeholder="admin@example.com"
-                className="w-full rounded-lg border border-neutral-200 bg-surface px-4 py-3 text-sm text-primary placeholder:text-neutral-400 focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20 transition-colors"
+                className="w-full rounded-lg border border-neutral-200 bg-background px-4 py-3 text-sm text-foreground placeholder:text-neutral-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
               />
             </div>
 
@@ -140,14 +140,14 @@ export default function AdminLoginPage() {
                 required
                 autoComplete="current-password"
                 placeholder="••••••••"
-                className="w-full rounded-lg border border-neutral-200 bg-surface px-4 py-3 text-sm text-primary placeholder:text-neutral-400 focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20 transition-colors"
+                className="w-full rounded-lg border border-neutral-200 bg-background px-4 py-3 text-sm text-foreground placeholder:text-neutral-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-secondary py-3 text-sm font-semibold text-primary hover:bg-secondary/85 disabled:opacity-60 disabled:cursor-not-allowed transition-colors cursor-pointer"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/85 disabled:opacity-60 disabled:cursor-not-allowed transition-colors cursor-pointer"
             >
               {loading
                 ? <><CircleNotch size={16} className="animate-spin" /> Signing in…</>

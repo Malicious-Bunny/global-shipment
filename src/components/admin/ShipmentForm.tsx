@@ -38,8 +38,8 @@ function Input({ error, className, ...props }: React.InputHTMLAttributes<HTMLInp
     <input
       {...props}
       className={cn(
-        'w-full rounded-lg border bg-surface px-3.5 py-2.5 text-sm text-primary placeholder:text-neutral-400 transition-colors',
-        'focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary',
+        'w-full rounded-lg border bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-neutral-400 transition-colors',
+        'focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary',
         error ? 'border-danger/60 bg-danger/5' : 'border-neutral-200 hover:border-neutral-300',
         className,
       )}
@@ -52,8 +52,8 @@ function Textarea({ error, className, ...props }: React.TextareaHTMLAttributes<H
     <textarea
       {...props}
       className={cn(
-        'w-full rounded-lg border bg-surface px-3.5 py-2.5 text-sm text-primary placeholder:text-neutral-400 transition-colors resize-none',
-        'focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary',
+        'w-full rounded-lg border bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-neutral-400 transition-colors resize-none',
+        'focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary',
         error ? 'border-danger/60 bg-danger/5' : 'border-neutral-200 hover:border-neutral-300',
         className,
       )}
@@ -66,8 +66,8 @@ function SelectField({ error, children, className, ...props }: React.SelectHTMLA
     <select
       {...props}
       className={cn(
-        'w-full rounded-lg border bg-surface px-3.5 py-2.5 text-sm text-primary transition-colors appearance-none',
-        'focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary',
+        'w-full rounded-lg border bg-background px-3.5 py-2.5 text-sm text-foreground transition-colors appearance-none',
+        'focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary',
         error ? 'border-danger/60 bg-danger/5' : 'border-neutral-200 hover:border-neutral-300',
         className,
       )}
@@ -79,8 +79,8 @@ function SelectField({ error, children, className, ...props }: React.SelectHTMLA
 
 function FormSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-surface rounded-xl border border-neutral-200 shadow-xs overflow-hidden mb-4">
-      <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50">
+    <div className="bg-background rounded-xl border border-neutral-200 shadow-xs overflow-hidden mb-4">
+      <div className="px-5 py-3 border-b border-neutral-100 bg-muted">
         <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-500">{title}</h3>
       </div>
       <div className="p-5">{children}</div>
@@ -303,7 +303,7 @@ export default function ShipmentForm({ shipment, mode }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex items-center gap-2 rounded-lg bg-secondary px-6 py-2.5 text-sm font-semibold text-primary hover:bg-secondary/85 disabled:opacity-60 disabled:cursor-not-allowed transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/85 disabled:opacity-60 disabled:cursor-not-allowed transition-colors cursor-pointer"
         >
           {loading && <CircleNotch size={16} className="animate-spin" />}
           {mode === 'create' ? 'Create Shipment' : 'Save Changes'}
@@ -312,7 +312,7 @@ export default function ShipmentForm({ shipment, mode }: Props) {
           type="button"
           onClick={() => router.back()}
           disabled={loading}
-          className="inline-flex items-center rounded-lg border border-neutral-200 bg-surface px-6 py-2.5 text-sm font-medium text-neutral-600 hover:bg-neutral-50 disabled:opacity-60 transition-colors cursor-pointer"
+          className="inline-flex items-center rounded-lg border border-neutral-200 bg-background px-6 py-2.5 text-sm font-medium text-neutral-600 hover:bg-muted/50 disabled:opacity-60 transition-colors cursor-pointer"
         >
           Cancel
         </button>

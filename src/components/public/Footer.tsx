@@ -1,13 +1,14 @@
 import Link from 'next/link';
-import { Phone, Envelope, MapPin, ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
+import Image from 'next/image';
+import { Phone, Envelope, MapPin } from '@phosphor-icons/react/dist/ssr';
 import Logo from '@/components/ui/Logo';
 
 const quickLinks = [
-  { label: 'Home',          href: '/' },
-  { label: 'About Us',      href: '/about' },
-  { label: 'Services',      href: '/services' },
-  { label: 'Track & Trace', href: '/track' },
-  { label: 'FAQ',           href: '/faq' },
+  { label: 'Home',          href: '/'        },
+  { label: 'About Us',      href: '/about'   },
+  { label: 'Services',      href: '/services'},
+  { label: 'Track & Trace', href: '/track'   },
+  { label: 'FAQ',           href: '/faq'     },
   { label: 'Contact',       href: '/contact' },
 ];
 
@@ -22,34 +23,39 @@ const services = [
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-950 text-white">
-      {/* Yellow top accent */}
-      <div className="h-0.5 w-full bg-secondary" />
+    <footer className="bg-navy text-white overflow-hidden">
+      {/* Blue top accent line */}
+      <div className="h-[3px] w-full bg-primary" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-8">
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 mb-14">
+      {/* Main footer content */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-10">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 mb-12">
 
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="mb-5">
-              <Logo height={30} className="brightness-0 invert" />
+              <Logo height={34} className="brightness-0 invert" />
             </div>
-            <p className="text-sm text-white/40 leading-relaxed max-w-xs">
-              Fast, reliable, and secure logistics solutions for businesses and individuals worldwide.
+            <p className="text-sm text-white/60 leading-relaxed max-w-xs">
+              Fast, reliable, and transparent logistics for individuals and businesses — delivered worldwide with precision.
             </p>
+            <div className="mt-6 flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-xs text-white/50">All systems operational</span>
+            </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Menu / Quick Links */}
           <div>
-            <h4 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30">
-              Quick Links
+            <h4 className="mb-4 text-[10px] font-bold uppercase tracking-[0.18em] text-white/50">
+              Menu
             </h4>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/55 hover:text-white transition-colors duration-150 cursor-pointer"
+                    className="text-sm text-white/60 hover:text-white transition-colors duration-150"
                   >
                     {link.label}
                   </Link>
@@ -60,7 +66,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30">
+            <h4 className="mb-4 text-[10px] font-bold uppercase tracking-[0.18em] text-white/50">
               Services
             </h4>
             <ul className="space-y-2.5">
@@ -68,49 +74,72 @@ export default function Footer() {
                 <li key={s.label}>
                   <Link
                     href={s.href}
-                    className="text-sm text-white/55 hover:text-white transition-colors duration-150 cursor-pointer inline-flex items-center gap-1 group"
+                    className="text-sm text-white/60 hover:text-white transition-colors duration-150"
                   >
                     {s.label}
-                    <ArrowUpRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Office / Contact */}
           <div>
-            <h4 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30">
-              Contact
+            <h4 className="mb-4 text-[10px] font-bold uppercase tracking-[0.18em] text-white/50">
+              Office
             </h4>
-            <ul className="space-y-3.5">
+            <ul className="space-y-4">
               <li className="flex items-start gap-2.5">
-                <MapPin size={15} weight="duotone" className="text-secondary mt-0.5 shrink-0" />
-                <span className="text-sm text-white/55">Swansea, Wales UK</span>
+                <MapPin size={14} weight="fill" className="text-primary-foreground mt-0.5 shrink-0" />
+                <span className="text-sm text-white/60 leading-relaxed">
+                  Global Express Shipments Ltd<br />
+                  Swansea, Wales, United Kingdom
+                </span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Phone size={15} weight="duotone" className="text-secondary shrink-0" />
-                <span className="text-sm text-white/55">+44 7415 413409</span>
+                <Phone size={14} weight="fill" className="text-primary-foreground shrink-0" />
+                <a href="tel:+447415413409" className="text-sm text-white/60 hover:text-white transition-colors">
+                  +44 7415 413409
+                </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Envelope size={15} weight="duotone" className="text-secondary shrink-0" />
-                <span className="text-sm text-white/55">info@documents-consultancy.com</span>
+                <Envelope size={14} weight="fill" className="text-primary-foreground shrink-0" />
+                <a
+                  href="mailto:info@documents-consultancy.com"
+                  className="text-sm text-white/60 hover:text-white transition-colors break-all"
+                >
+                  info@documents-consultancy.com
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-white/25">
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-white/45">
             © {new Date().getFullYear()} Global Express Shipments. All rights reserved.
           </p>
           <Link
             href="/track"
-            className="text-xs font-semibold text-secondary hover:text-secondary/80 transition-colors cursor-pointer"
+            className="text-xs font-semibold text-white/60 hover:text-white transition-colors"
           >
             Track a Shipment →
           </Link>
         </div>
+      </div>
+
+      {/* Large hero ship image at the very bottom — like Logi Craft */}
+      <div className="relative h-56 sm:h-72 w-full">
+        <Image
+          src="/images/hero-container-globe.jpg"
+          alt="GES global shipping operations"
+          fill
+          className="object-cover object-center opacity-30"
+          sizes="100vw"
+        />
+        {/* Strong gradient fade from top so it blends into the footer */}
+        <div className="absolute inset-0 bg-linear-to-b from-navy via-navy/60 to-transparent" />
       </div>
     </footer>
   );

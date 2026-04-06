@@ -30,7 +30,7 @@ function InfoRow({ label, value }: { label: string; value: string | null }) {
   return (
     <div className="flex justify-between items-start py-2.5 border-b border-neutral-100 last:border-0 gap-4">
       <span className="text-xs text-neutral-400 uppercase tracking-wider shrink-0 pt-0.5">{label}</span>
-      <span className="text-sm text-primary font-medium text-right">{value}</span>
+      <span className="text-sm text-foreground font-medium text-right">{value}</span>
     </div>
   );
 }
@@ -46,7 +46,7 @@ export default function TrackResult({ shipment }: Props) {
   );
 
   return (
-    <div className="bg-neutral-50 min-h-screen">
+    <div className="bg-background min-h-screen">
 
       {/* ── Page header ── */}
       <div className="bg-primary border-b border-white/10">
@@ -54,8 +54,8 @@ export default function TrackResult({ shipment }: Props) {
           <div>
             <Logo height={28} className="brightness-0 invert mb-4" />
             <div className="flex items-center gap-2 mb-1">
-              <span className="h-px w-6 bg-secondary" />
-              <span className="text-[10px] tracking-[0.2em] uppercase text-secondary font-medium">Track & Trace</span>
+              <span className="h-px w-6 bg-primary-foreground" />
+              <span className="text-[10px] tracking-[0.2em] uppercase text-primary-foreground font-medium">Track & Trace</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">{shipment.tracking_number}</h1>
           </div>
@@ -72,7 +72,7 @@ export default function TrackResult({ shipment }: Props) {
       <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8 space-y-4">
 
         {/* ── Status + Progress bar ── */}
-        <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
+        <div className="rounded-2xl bg-card border border-neutral-200 shadow-xs overflow-hidden">
           {/* Coloured top accent */}
           <div className="h-1 w-full" style={{ backgroundColor: statusColor }} />
 
@@ -85,15 +85,15 @@ export default function TrackResult({ shipment }: Props) {
                     className="inline-block h-2.5 w-2.5 rounded-full"
                     style={{ backgroundColor: statusColor }}
                   />
-                  <span className="text-xl font-bold text-primary">{statusLabel}</span>
+                  <span className="text-xl font-bold text-foreground">{statusLabel}</span>
                 </div>
               </div>
               {shipment.estimated_delivery && (
                 <div className="text-right">
                   <p className="text-xs text-neutral-400 uppercase tracking-wider mb-1">Est. Delivery</p>
                   <div className="flex items-center gap-1.5 justify-end">
-                    <Clock size={14} className="text-secondary" />
-                    <span className="text-sm font-semibold text-primary">
+                    <Clock size={14} className="text-muted-foreground" />
+                    <span className="text-sm font-semibold text-foreground">
                       {new Date(shipment.estimated_delivery).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
                     </span>
                   </div>
@@ -113,26 +113,26 @@ export default function TrackResult({ shipment }: Props) {
                         <div className="relative w-full flex items-center">
                           {/* Left connector */}
                           {i > 0 && (
-                            <div className={`flex-1 h-0.5 ${done || current ? 'bg-secondary' : 'bg-neutral-200'}`} />
+                            <div className={`flex-1 h-0.5 ${done || current ? 'bg-primary' : 'bg-neutral-200'}`} />
                           )}
                           <div
                             className={`h-5 w-5 shrink-0 rounded-full flex items-center justify-center border-2 z-10 transition-colors duration-200 ${
                               done
-                                ? 'bg-secondary border-secondary'
+                                ? 'bg-primary border-primary'
                                 : current
-                                ? 'bg-white border-secondary'
-                                : 'bg-white border-neutral-300'
+                                ? 'bg-card border-primary'
+                                : 'bg-card border-neutral-300'
                             }`}
                           >
-                            {done && <CheckCircle size={12} weight="fill" className="text-primary" />}
-                            {current && <div className="h-2 w-2 rounded-full bg-secondary" />}
+                            {done && <CheckCircle size={12} weight="fill" className="text-primary-foreground" />}
+                            {current && <div className="h-2 w-2 rounded-full bg-primary" />}
                           </div>
                           {/* Right connector */}
                           {i < STEP_LABELS.length - 1 && (
-                            <div className={`flex-1 h-0.5 ${done ? 'bg-secondary' : 'bg-neutral-200'}`} />
+                            <div className={`flex-1 h-0.5 ${done ? 'bg-primary' : 'bg-neutral-200'}`} />
                           )}
                         </div>
-                        <span className={`text-[9px] uppercase tracking-wide text-center leading-tight px-1 ${current ? 'font-bold text-primary' : done ? 'text-secondary' : 'text-neutral-400'}`}>
+                        <span className={`text-[9px] uppercase tracking-wide text-center leading-tight px-1 ${current ? 'font-bold text-foreground' : done ? 'text-muted-foreground' : 'text-neutral-400'}`}>
                           {label}
                         </span>
                       </div>
@@ -155,7 +155,7 @@ export default function TrackResult({ shipment }: Props) {
         {/* ── Price + Barcode row ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Barcode */}
-          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs p-5 flex flex-col items-center justify-center">
+          <div className="rounded-2xl bg-card border border-neutral-200 shadow-xs p-5 flex flex-col items-center justify-center">
             <Barcode
               value={shipment.tracking_number}
               width={1.4}
@@ -168,14 +168,14 @@ export default function TrackResult({ shipment }: Props) {
           </div>
 
           {/* Price + quick facts */}
-          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs p-5 flex flex-col justify-between gap-4">
+          <div className="rounded-2xl bg-card border border-neutral-200 shadow-xs p-5 flex flex-col justify-between gap-4">
             {shipment.delivery_price != null ? (
               <div className="flex flex-col items-center justify-center flex-1 text-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-secondary/10 mb-3">
-                  <Tag size={24} weight="duotone" className="text-secondary" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 mb-3">
+                  <Tag size={24} weight="duotone" className="text-muted-foreground" />
                 </div>
                 <p className="text-xs text-neutral-400 uppercase tracking-wider mb-1">Delivery Price</p>
-                <p className="text-3xl font-bold text-primary">
+                <p className="text-3xl font-bold text-foreground">
                   £{shipment.delivery_price.toFixed(2)}
                 </p>
               </div>
@@ -189,20 +189,20 @@ export default function TrackResult({ shipment }: Props) {
               {shipment.package_type && (
                 <div className="flex justify-between text-xs">
                   <span className="text-neutral-400">Type</span>
-                  <span className="font-medium text-primary">{shipment.package_type}</span>
+                  <span className="font-medium text-foreground">{shipment.package_type}</span>
                 </div>
               )}
               {shipment.weight && (
                 <div className="flex justify-between text-xs">
                   <span className="text-neutral-400">Weight</span>
-                  <span className="font-medium text-primary">{shipment.weight} kg</span>
+                  <span className="font-medium text-foreground">{shipment.weight} kg</span>
                 </div>
               )}
               {shipment.origin && shipment.destination && (
                 <div className="flex items-center gap-1.5 text-xs text-neutral-500 pt-1">
-                  <span className="font-medium text-primary truncate max-w-[80px]">{shipment.origin}</span>
-                  <ArrowRight size={11} className="text-secondary shrink-0" />
-                  <span className="font-medium text-primary truncate max-w-[80px]">{shipment.destination}</span>
+                  <span className="font-medium text-foreground truncate max-w-[80px]">{shipment.origin}</span>
+                  <ArrowRight size={11} className="text-muted-foreground shrink-0" />
+                  <span className="font-medium text-foreground truncate max-w-[80px]">{shipment.destination}</span>
                 </div>
               )}
             </div>
@@ -211,8 +211,8 @@ export default function TrackResult({ shipment }: Props) {
 
         {/* ── Shipper / Receiver ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
-            <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50">
+          <div className="rounded-2xl bg-card border border-neutral-200 shadow-xs overflow-hidden">
+            <div className="px-5 py-3 border-b border-neutral-100 bg-muted">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Shipper</p>
             </div>
             <div className="px-5 py-1">
@@ -222,8 +222,8 @@ export default function TrackResult({ shipment }: Props) {
               <InfoRow label="Email"   value={shipment.shipper_email} />
             </div>
           </div>
-          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
-            <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50">
+          <div className="rounded-2xl bg-card border border-neutral-200 shadow-xs overflow-hidden">
+            <div className="px-5 py-3 border-b border-neutral-100 bg-muted">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Receiver</p>
             </div>
             <div className="px-5 py-1">
@@ -237,8 +237,8 @@ export default function TrackResult({ shipment }: Props) {
 
         {/* ── Package details ── */}
         {shipment.description && (
-          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
-            <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50">
+          <div className="rounded-2xl bg-card border border-neutral-200 shadow-xs overflow-hidden">
+            <div className="px-5 py-3 border-b border-neutral-100 bg-muted">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Package Details</p>
             </div>
             <div className="px-5 py-1">
@@ -250,11 +250,11 @@ export default function TrackResult({ shipment }: Props) {
 
         {/* ── Live map ── */}
         {shipment.current_lat != null && shipment.current_lng != null && (
-          <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
-            <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50 flex items-center gap-2.5">
+          <div className="rounded-2xl bg-card border border-neutral-200 shadow-xs overflow-hidden">
+            <div className="px-5 py-3 border-b border-neutral-100 bg-muted flex items-center gap-2.5">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Live Package Location</p>
             </div>
@@ -269,8 +269,8 @@ export default function TrackResult({ shipment }: Props) {
         )}
 
         {/* ── Timeline ── */}
-        <div className="rounded-2xl bg-white border border-neutral-200 shadow-xs overflow-hidden">
-          <div className="px-5 py-3 border-b border-neutral-100 bg-neutral-50">
+        <div className="rounded-2xl bg-card border border-neutral-200 shadow-xs overflow-hidden">
+          <div className="px-5 py-3 border-b border-neutral-100 bg-muted">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Tracking History</p>
           </div>
 
@@ -312,10 +312,10 @@ export default function TrackResult({ shipment }: Props) {
                           {new Date(event.event_timestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
                         </span>
                       </div>
-                      <p className="text-sm text-primary font-medium">{event.description}</p>
+                      <p className="text-sm text-foreground font-medium">{event.description}</p>
                       {event.location && (
                         <div className="flex items-center gap-1 mt-1">
-                          <MapPin size={11} className="text-secondary shrink-0" />
+                          <MapPin size={11} className="text-muted-foreground shrink-0" />
                           <span className="text-xs text-neutral-400">{event.location}</span>
                         </div>
                       )}

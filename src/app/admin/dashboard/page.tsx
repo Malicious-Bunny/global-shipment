@@ -22,9 +22,9 @@ export default async function DashboardPage() {
   const recent    = all.slice(0, 8);
 
   const stats = [
-    { label: 'Total Shipments',   value: total,     Icon: Package,     color: 'text-primary',       bg: 'bg-neutral-100'   },
+    { label: 'Total Shipments',   value: total,     Icon: Package,     color: 'text-foreground',       bg: 'bg-neutral-100'   },
     { label: 'Delivered',         value: delivered,  Icon: CheckCircle, color: 'text-success',       bg: 'bg-success/10'    },
-    { label: 'In Transit',        value: inTransit,  Icon: Hourglass,   color: 'text-blue-600',      bg: 'bg-blue-50'       },
+    { label: 'In Transit',        value: inTransit,  Icon: Hourglass,   color: 'text-muted-foreground',      bg: 'bg-muted'       },
     { label: 'Pending / On Hold', value: pending,    Icon: Warning,     color: 'text-warning',       bg: 'bg-warning/10'    },
   ];
 
@@ -33,12 +33,12 @@ export default async function DashboardPage() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>Dashboard</h1>
+          <h1 className="text-xl font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>Dashboard</h1>
           <p className="text-sm text-neutral-500 mt-0.5">Overview of all shipments</p>
         </div>
         <Link
           href="/admin/shipments/new"
-          className="inline-flex items-center gap-2 rounded-lg bg-secondary px-4 py-2 text-sm font-semibold text-primary hover:bg-secondary/85 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/85 transition-colors cursor-pointer"
         >
           <Plus size={15} weight="bold" />
           New Shipment
@@ -48,7 +48,7 @@ export default async function DashboardPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 mb-6">
         {stats.map(({ label, value, Icon, color, bg }) => (
-          <div key={label} className="rounded-xl border border-neutral-200 bg-surface p-5 shadow-xs">
+          <div key={label} className="rounded-xl border border-neutral-200 bg-background p-5 shadow-xs">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium uppercase tracking-wide text-neutral-400">{label}</span>
               <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${bg}`}>
@@ -63,10 +63,10 @@ export default async function DashboardPage() {
       </div>
 
       {/* Recent shipments */}
-      <div className="rounded-xl border border-neutral-200 bg-surface shadow-xs overflow-hidden">
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-neutral-100 bg-neutral-50">
+      <div className="rounded-xl border border-neutral-200 bg-background shadow-xs overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-neutral-100 bg-muted">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-neutral-500">Recent Shipments</h2>
-          <Link href="/admin/shipments" className="text-xs font-semibold text-neutral-500 hover:text-primary transition-colors cursor-pointer">
+          <Link href="/admin/shipments" className="text-xs font-semibold text-neutral-500 hover:text-foreground transition-colors cursor-pointer">
             View All →
           </Link>
         </div>
@@ -81,10 +81,10 @@ export default async function DashboardPage() {
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-100">
+            <tbody className="divide-y divide-border">
               {recent.map((s: Shipment) => (
-                <tr key={s.id} className="hover:bg-neutral-50 transition-colors">
-                  <td className="px-4 py-3 font-mono text-xs font-semibold text-primary whitespace-nowrap">
+                <tr key={s.id} className="hover:bg-muted/50 transition-colors">
+                  <td className="px-4 py-3 font-mono text-xs font-semibold text-foreground whitespace-nowrap">
                     {s.tracking_number}
                   </td>
                   <td className="px-4 py-3 text-sm text-neutral-700">{s.shipper_name}</td>
@@ -104,7 +104,7 @@ export default async function DashboardPage() {
                   <td className="px-4 py-3">
                     <Link
                       href={`/admin/shipments/${s.id}`}
-                      className="text-xs font-semibold text-neutral-500 hover:text-primary transition-colors cursor-pointer"
+                      className="text-xs font-semibold text-neutral-500 hover:text-foreground transition-colors cursor-pointer"
                     >
                       Manage →
                     </Link>
@@ -115,7 +115,7 @@ export default async function DashboardPage() {
                 <tr>
                   <td colSpan={7} className="px-4 py-12 text-center text-sm text-neutral-400">
                     No shipments yet.{' '}
-                    <Link href="/admin/shipments/new" className="font-medium text-primary underline hover:no-underline">
+                    <Link href="/admin/shipments/new" className="font-medium text-foreground underline hover:no-underline">
                       Create the first one
                     </Link>
                   </td>

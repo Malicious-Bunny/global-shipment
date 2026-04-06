@@ -29,13 +29,13 @@ const contactItems = [
 export default function ContactPage() {
   return (
     <>
-      <div className="bg-neutral-50 border-b border-neutral-200 py-16">
+      <div className="bg-background border-b border-neutral-200 py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="flex items-center gap-2.5 mb-4">
-            <span className="h-px w-5 bg-secondary" />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">Reach Us</span>
+            <span className="h-px w-5 bg-primary" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Reach Us</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-black text-primary" style={{ letterSpacing: '-0.03em' }}>
+          <h1 className="text-4xl sm:text-5xl font-black text-foreground" style={{ letterSpacing: '-0.03em' }}>
             Contact Us
           </h1>
           <p className="mt-3 text-neutral-500">We are here to help with all your shipping needs.</p>
@@ -47,13 +47,13 @@ export default function ContactPage() {
           {contactItems.map(({ Icon, title, lines }) => (
             <div
               key={title}
-              className="flex gap-4 rounded-2xl border border-neutral-200 bg-white p-6 shadow-xs"
+              className="flex gap-4 rounded-2xl border border-neutral-200 bg-card p-6 shadow-xs"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-secondary/10">
-                <Icon size={20} weight="duotone" className="text-secondary" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                <Icon size={20} weight="duotone" className="text-muted-foreground" />
               </div>
               <div>
-                <h3 className="mb-1.5 font-bold text-primary text-sm">{title}</h3>
+                <h3 className="mb-1.5 font-bold text-foreground text-sm">{title}</h3>
                 {lines.map((line) => (
                   <p key={line} className="text-sm text-neutral-500 leading-relaxed">{line}</p>
                 ))}

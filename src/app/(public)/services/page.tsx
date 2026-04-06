@@ -67,10 +67,10 @@ const services = [
 export default function ServicesPage() {
   return (
     <>
-      <div className="bg-neutral-50 border-b border-neutral-200 py-14">
+      <div className="bg-background border-b border-neutral-200 py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="h-1 w-10 bg-secondary rounded-full mb-5" />
-          <h1 className="text-4xl sm:text-5xl font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>
+          <div className="h-1 w-10 bg-primary rounded-full mb-5" />
+          <h1 className="text-4xl sm:text-5xl font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
             Our Services
           </h1>
           <p className="mt-2 text-neutral-500">Comprehensive logistics solutions for every need</p>
@@ -82,7 +82,7 @@ export default function ServicesPage() {
           {services.map(({ slug, Icon, title, image, desc, features }) => (
             <div
               key={title}
-              className="group rounded-xl border border-neutral-200 bg-surface shadow-xs hover:shadow-md hover:border-secondary/30 transition-all duration-200 overflow-hidden flex flex-col"
+              className="group rounded-xl border border-neutral-200 bg-background shadow-xs hover:shadow-md hover:border-primary/30 transition-all duration-200 overflow-hidden flex flex-col"
             >
               {/* Image banner */}
               {image && (
@@ -96,7 +96,7 @@ export default function ServicesPage() {
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
                   <div className="absolute bottom-3 left-4 flex items-center gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-secondary/90 backdrop-blur-sm">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/90 backdrop-blur-sm">
                       <Icon size={17} weight="duotone" className="text-white" />
                     </div>
                     <span className="text-sm font-semibold text-white drop-shadow" style={{ fontFamily: 'var(--font-display)' }}>
@@ -109,20 +109,20 @@ export default function ServicesPage() {
               <div className="p-6 flex flex-col flex-1">
                 {!image && (
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/10">
-                      <Icon size={22} weight="duotone" className="text-secondary" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                      <Icon size={22} weight="duotone" className="text-muted-foreground" />
                     </div>
-                    <h2 className="text-base font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>{title}</h2>
+                    <h2 className="text-base font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>{title}</h2>
                   </div>
                 )}
                 {image && (
-                  <h2 className="text-base font-semibold text-primary mb-3" style={{ fontFamily: 'var(--font-display)' }}>{title}</h2>
+                  <h2 className="text-base font-semibold text-foreground mb-3" style={{ fontFamily: 'var(--font-display)' }}>{title}</h2>
                 )}
                 <p className="text-sm text-neutral-500 leading-relaxed mb-4">{desc}</p>
                 <ul className="space-y-1.5 mb-5">
                   {features.map((f) => (
                     <li key={f} className="flex items-center gap-2 text-sm text-neutral-500">
-                      <span className="h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
                       {f}
                     </li>
                   ))}
@@ -130,7 +130,7 @@ export default function ServicesPage() {
                 <div className="mt-auto">
                   <Link
                     href={`/services/${slug}`}
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-secondary transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-foreground transition-colors cursor-pointer"
                   >
                     Learn More <ArrowRight size={14} />
                   </Link>

@@ -11,12 +11,12 @@ export default function NewShipmentPage() {
       <div className="mb-6">
         <Link
           href="/admin/shipments"
-          className="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-primary transition-colors cursor-pointer mb-3"
+          className="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-foreground transition-colors cursor-pointer mb-3"
         >
           <ArrowLeft size={14} />
           Back to Shipments
         </Link>
-        <h1 className="text-xl font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>
+        <h1 className="text-xl font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
           Create New Shipment
         </h1>
         <p className="text-sm text-neutral-500 mt-0.5">A tracking number will be generated automatically</p>

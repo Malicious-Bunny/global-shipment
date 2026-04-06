@@ -9,37 +9,19 @@ const values = [
   { title: 'Reliability',    desc: '98%+ on-time rate — your goods arrive when promised, every time.' },
   { title: 'Transparency',   desc: 'Full visibility at every stage with real-time tracking and proactive updates.' },
   { title: 'Safety',         desc: 'All shipments handled with care and covered by comprehensive cargo insurance.' },
-  { title: 'Global Reach',   desc: 'A network spanning 50+ countries, reaching virtually any destination worldwide.' },
+  { title: 'Global Reach',   desc: 'A network spanning 150+ countries, reaching virtually any destination.' },
   { title: 'Customer First', desc: 'Dedicated support at every step of your shipping journey.' },
 ];
-
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-2.5 mb-4">
-      <span className="h-px w-5 bg-secondary" />
-      <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">{children}</span>
-    </div>
-  );
-}
 
 export default function AboutPage() {
   return (
     <>
-      {/* Banner */}
-      <div className="relative bg-primary overflow-hidden" style={{ minHeight: 320 }}>
-        <Image
-          src="/images/about-staff.jpg"
-          alt="Global Express Shipments team"
-          fill priority
-          className="object-cover object-center opacity-40"
-          sizes="100vw"
-        />
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-          <Eyebrow>Our Story</Eyebrow>
-          <h1 className="text-4xl sm:text-5xl font-black text-white" style={{ letterSpacing: '-0.03em' }}>
-            About Us
-          </h1>
-          <p className="mt-3 text-white/50 text-base max-w-md">Your trusted global logistics partner</p>
+      {/* Page header */}
+      <div className="bg-background border-b border-neutral-200 py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-3">Our Story</p>
+          <h1 className="text-4xl sm:text-5xl font-bold text-foreground">About Us</h1>
+          <p className="mt-3 text-neutral-500 max-w-md">Your trusted global logistics partner — built on trust, driven by technology.</p>
         </div>
       </div>
 
@@ -48,8 +30,8 @@ export default function AboutPage() {
         {/* Who we are */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <Eyebrow>Who We Are</Eyebrow>
-            <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6" style={{ letterSpacing: '-0.02em' }}>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-3">Who We Are</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               A logistics company built on trust.
             </h2>
             <p className="text-neutral-500 leading-relaxed mb-4">
@@ -63,7 +45,7 @@ export default function AboutPage() {
               with the same level of care and professionalism.
             </p>
           </div>
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md">
             <Image
               src="/images/about-container.jpg"
               alt="Global Express Shipments shipping container at port"
@@ -76,7 +58,7 @@ export default function AboutPage() {
 
         {/* Mission */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg order-2 lg:order-1">
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md order-2 lg:order-1">
             <Image
               src="/images/fleet-vehicles.jpg"
               alt="Global Express Shipments fleet"
@@ -86,8 +68,8 @@ export default function AboutPage() {
             />
           </div>
           <div className="order-1 lg:order-2">
-            <Eyebrow>Our Mission</Eyebrow>
-            <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6" style={{ letterSpacing: '-0.02em' }}>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-3">Our Mission</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Making global commerce simple.
             </h2>
             <p className="text-neutral-500 leading-relaxed mb-4">
@@ -103,16 +85,14 @@ export default function AboutPage() {
 
         {/* Values */}
         <div>
-          <Eyebrow>What We Stand For</Eyebrow>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-10" style={{ letterSpacing: '-0.02em' }}>
-            Our core values.
-          </h2>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-3">What We Stand For</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-10">Our core values.</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {values.map(({ title, desc }) => (
-              <div key={title} className="rounded-2xl bg-neutral-50 border border-neutral-200 p-6">
+              <div key={title} className="rounded-2xl bg-background border border-neutral-200 p-6 hover:border-primary/30 transition-colors">
                 <div className="flex items-center gap-2.5 mb-3">
-                  <CheckCircle size={16} weight="duotone" className="text-secondary shrink-0" />
-                  <h3 className="font-bold text-primary text-sm">{title}</h3>
+                  <CheckCircle size={16} weight="duotone" className="text-muted-foreground shrink-0" />
+                  <h3 className="font-bold text-foreground text-sm">{title}</h3>
                 </div>
                 <p className="text-sm text-neutral-500 leading-relaxed">{desc}</p>
               </div>

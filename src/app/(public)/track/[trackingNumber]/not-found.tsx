@@ -8,7 +8,7 @@ export default function NotFound() {
         <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100">
           <MagnifyingGlass size={32} weight="duotone" className="text-neutral-400" />
         </div>
-        <h1 className="mb-2 text-xl font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>
+        <h1 className="mb-2 text-xl font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
           Shipment Not Found
         </h1>
         <p className="mb-6 text-sm text-neutral-500 leading-relaxed">
@@ -17,7 +17,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/track"
-          className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white hover:bg-neutral-800 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/85 transition-colors cursor-pointer"
         >
           Try Again
         </Link>

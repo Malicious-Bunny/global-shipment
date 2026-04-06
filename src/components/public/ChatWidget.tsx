@@ -114,12 +114,12 @@ export default function ChatWidget() {
       <button
         onClick={open ? () => setOpen(false) : handleOpen}
         aria-label="Open live chat"
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-secondary shadow-lg hover:bg-secondary/90 transition-colors cursor-pointer"
+        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary shadow-lg hover:bg-primary/90 transition-colors cursor-pointer"
       >
         {open ? (
-          <X size={22} weight="bold" className="text-primary" />
+          <X size={22} weight="bold" className="text-primary-foreground" />
         ) : (
-          <ChatCircle size={26} weight="duotone" className="text-primary" />
+          <ChatCircle size={26} weight="duotone" className="text-primary-foreground" />
         )}
         {!open && unread > 0 && (
           <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
@@ -130,12 +130,12 @@ export default function ChatWidget() {
 
       {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-24 right-5 z-50 flex flex-col w-80 sm:w-96 h-[480px] rounded-2xl border border-neutral-200 bg-white shadow-2xl overflow-hidden">
+        <div className="fixed bottom-24 right-5 z-50 flex flex-col w-80 sm:w-96 h-[480px] rounded-2xl border border-neutral-200 bg-card shadow-2xl overflow-hidden">
           {/* Header */}
           <div className="flex items-center gap-3 bg-primary px-4 py-3 shrink-0">
             <div className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-secondary" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-foreground opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary-foreground" />
             </div>
             <div className="flex-1">
               <p className="text-sm font-semibold text-white">Live Support</p>
@@ -147,10 +147,10 @@ export default function ChatWidget() {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-neutral-50">
+          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-background">
             {/* Welcome message */}
             <div className="flex justify-start">
-              <div className="max-w-[75%] rounded-2xl rounded-tl-sm bg-white border border-neutral-200 px-3 py-2 shadow-xs">
+              <div className="max-w-[75%] rounded-2xl rounded-tl-sm bg-card border border-neutral-200 px-3 py-2 shadow-xs">
                 <p className="text-sm text-neutral-700">Hi there! How can we help you today?</p>
                 <p className="text-[10px] text-neutral-400 mt-1">Support Team</p>
               </div>
@@ -167,12 +167,12 @@ export default function ChatWidget() {
                 <div
                   className={`max-w-[75%] rounded-2xl px-3 py-2 ${
                     msg.sender === 'visitor'
-                      ? 'bg-secondary rounded-tr-sm'
-                      : 'bg-white border border-neutral-200 rounded-tl-sm shadow-xs'
+                      ? 'bg-primary rounded-tr-sm'
+                      : 'bg-card border border-neutral-200 rounded-tl-sm shadow-xs'
                   }`}
                 >
-                  <p className={`text-sm ${msg.sender === 'visitor' ? 'text-primary' : 'text-neutral-700'}`}>{msg.body}</p>
-                  <p className={`text-[10px] mt-1 ${msg.sender === 'visitor' ? 'text-primary/50' : 'text-neutral-400'}`}>
+                  <p className={`text-sm ${msg.sender === 'visitor' ? 'text-primary-foreground' : 'text-neutral-700'}`}>{msg.body}</p>
+                  <p className={`text-[10px] mt-1 ${msg.sender === 'visitor' ? 'text-primary-foreground/50' : 'text-neutral-400'}`}>
                     {new Date(msg.created_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
@@ -182,25 +182,25 @@ export default function ChatWidget() {
           </div>
 
           {/* Input */}
-          <div className="flex items-center gap-2 border-t border-neutral-200 bg-white px-3 py-3 shrink-0">
+          <div className="flex items-center gap-2 border-t border-neutral-200 bg-card px-3 py-3 shrink-0">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
               placeholder="Type a message…"
-              className="flex-1 rounded-lg bg-neutral-100 px-3 py-2 text-sm text-primary placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-secondary/50"
+              className="flex-1 rounded-lg bg-muted px-3 py-2 text-sm text-foreground placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-primary/50"
             />
             <button
               onClick={sendMessage}
               disabled={!input.trim() || sending}
               aria-label="Send message"
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-secondary disabled:opacity-40 hover:bg-secondary/90 transition-colors cursor-pointer"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary disabled:opacity-40 hover:bg-primary/90 transition-colors cursor-pointer"
             >
               {sending ? (
-                <SpinnerGap size={16} weight="bold" className="text-primary animate-spin" />
+                <SpinnerGap size={16} weight="bold" className="text-primary-foreground animate-spin" />
               ) : (
-                <PaperPlaneTilt size={16} weight="duotone" className="text-primary" />
+                <PaperPlaneTilt size={16} weight="duotone" className="text-primary-foreground" />
               )}
             </button>
           </div>

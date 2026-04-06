@@ -24,7 +24,7 @@ export default async function EditShipmentPage({ params }: Props) {
       <div className="mb-6">
         <Link
           href="/admin/shipments"
-          className="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-primary transition-colors cursor-pointer mb-3"
+          className="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-foreground transition-colors cursor-pointer mb-3"
         >
           <ArrowLeft size={14} />
           Back to Shipments
@@ -32,7 +32,7 @@ export default async function EditShipmentPage({ params }: Props) {
 
         <div className="flex flex-wrap items-start gap-3">
           <div>
-            <h1 className="text-xl font-semibold text-primary" style={{ fontFamily: 'var(--font-display)' }}>
+            <h1 className="text-xl font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
               Edit Shipment
             </h1>
             <p className="text-sm font-mono text-neutral-400 mt-0.5">{shipment.tracking_number}</p>
@@ -48,7 +48,7 @@ export default async function EditShipmentPage({ params }: Props) {
           <div className="ml-auto flex gap-2 flex-wrap">
             <Link
               href={`/admin/shipments/${id}/events`}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-600 hover:bg-muted/50 transition-colors cursor-pointer"
             >
               <ListChecks size={14} />
               Manage Events
@@ -56,7 +56,7 @@ export default async function EditShipmentPage({ params }: Props) {
             <Link
               href={`/track/${shipment.tracking_number}`}
               target="_blank"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-600 hover:bg-muted/50 transition-colors cursor-pointer"
             >
               <ArrowSquareOut size={14} />
               Public View

@@ -38,14 +38,14 @@ export default function AdminNav({ children }: { children: React.ReactNode }) {
   };
 
   const sidebar = (
-    <div className="flex h-full flex-col bg-primary">
-      {/* Yellow accent stripe */}
-      <div className="h-0.5 w-full bg-secondary shrink-0" />
+    <div className="flex h-full flex-col bg-sidebar">
+      {/* Top accent stripe */}
+      <div className="h-0.5 w-full bg-primary shrink-0" />
 
       {/* Logo */}
-      <div className="flex flex-col gap-0.5 px-5 py-4 border-b border-white/8">
+      <div className="flex flex-col gap-0.5 px-5 py-4 border-b border-sidebar-border">
         <Logo height={28} className="brightness-0 invert" />
-        <p className="text-[9px] text-white/35 tracking-[0.2em] uppercase pl-0.5">Admin Panel</p>
+        <p className="text-[9px] text-sidebar-foreground/50 tracking-[0.2em] uppercase pl-0.5">Admin Panel</p>
       </div>
 
       {/* Nav links */}
@@ -60,8 +60,8 @@ export default function AdminNav({ children }: { children: React.ReactNode }) {
               className={cn(
                 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors duration-150 cursor-pointer',
                 active
-                  ? 'border-l-2 border-secondary bg-white/10 pl-2.5 text-white font-medium'
-                  : 'text-white/55 hover:bg-white/8 hover:text-white'
+                  ? 'border-l-2 border-primary bg-sidebar-accent pl-2.5 text-sidebar-accent-foreground font-semibold'
+                  : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'
               )}
             >
               <Icon size={17} weight={active ? 'duotone' : 'regular'} />
@@ -72,18 +72,18 @@ export default function AdminNav({ children }: { children: React.ReactNode }) {
       </nav>
 
       {/* Bottom */}
-      <div className="border-t border-white/8 px-3 pb-4 pt-3 space-y-0.5">
+      <div className="border-t border-sidebar-border px-3 pb-4 pt-3 space-y-0.5">
         <Link
           href="/"
           target="_blank"
-          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white/55 hover:bg-white/8 hover:text-white transition-colors cursor-pointer"
+          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-colors cursor-pointer"
         >
           <ArrowSquareOut size={17} />
           View Site
         </Link>
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white/55 hover:bg-white/8 hover:text-white transition-colors cursor-pointer"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-colors cursor-pointer"
         >
           <SignOut size={17} />
           Sign Out
@@ -128,12 +128,12 @@ export default function AdminNav({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Content area */}
-      <div className="flex flex-1 flex-col min-w-0 bg-neutral-100">
+      <div className="flex flex-1 flex-col min-w-0 bg-muted">
         {/* Mobile topbar */}
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-neutral-200 bg-surface px-4 shadow-xs md:hidden">
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-card px-4 shadow-xs md:hidden">
           <button
             onClick={() => setMobileOpen(true)}
-            className="p-2 rounded-lg text-neutral-500 hover:text-primary hover:bg-neutral-100 transition-colors cursor-pointer"
+            className="p-2 rounded-lg text-neutral-500 hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
             aria-label="Open sidebar"
           >
             <List size={20} />
@@ -149,13 +149,13 @@ export default function AdminNav({ children }: { children: React.ReactNode }) {
         </header>
 
         {/* Desktop topbar */}
-        <header className="hidden md:flex sticky top-0 z-20 h-14 items-center border-b border-neutral-200 bg-surface px-6 shadow-xs gap-3">
-          <div className="h-5 w-0.5 bg-secondary rounded-full" />
-          <span className="flex-1 text-sm font-semibold text-primary">Admin Panel</span>
+        <header className="hidden md:flex sticky top-0 z-20 h-14 items-center border-b border-border bg-card px-6 shadow-xs gap-3">
+          <div className="h-5 w-0.5 bg-primary rounded-full" />
+          <span className="flex-1 text-sm font-semibold text-foreground">Admin Panel</span>
           <Link
             href="/"
             target="_blank"
-            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-neutral-500 hover:text-primary hover:bg-neutral-100 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-neutral-500 hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
           >
             <ArrowSquareOut size={13} />
             View Site
