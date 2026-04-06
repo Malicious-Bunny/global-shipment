@@ -19,7 +19,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative w-full overflow-hidden pb-10 pt-28 font-light text-white antialiased md:pb-16 md:pt-32"
+      className="relative w-full overflow-hidden pb-8 pt-20 font-light text-white antialiased sm:pb-10 sm:pt-24 md:pb-16 md:pt-32"
       style={{ background: 'linear-gradient(135deg, #0a0613 0%, #150d27 100%)' }}
     >
       {/* Purple glow — top right */}
@@ -33,7 +33,7 @@ export default function HeroSection() {
         style={{ background: 'radial-gradient(circle at 70% 30%, rgba(155,135,245,0.15) 0%, rgba(13,10,25,0) 60%)' }}
       />
 
-      <div className="container relative z-10 mx-auto max-w-2xl px-4 text-center md:max-w-4xl md:px-6 lg:max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-2xl px-5 text-center sm:px-6 md:max-w-4xl md:px-6 lg:max-w-7xl">
 
         {/* ── Text block ── */}
         <motion.div
@@ -42,28 +42,32 @@ export default function HeroSection() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
           {/* Badge */}
-          <span className="mb-6 inline-block rounded-full border border-[#9b87f5]/30 px-3 py-1 text-xs text-[#9b87f5] uppercase tracking-widest">
+          <span className="mb-5 inline-block rounded-full border border-[#9b87f5]/30 px-3 py-1 text-[10px] text-[#9b87f5] uppercase tracking-widest sm:text-xs sm:mb-6">
             Worldwide Logistics &amp; Courier — Swansea, Wales UK
           </span>
 
           {/* Headline */}
-          <h1 className="mx-auto mb-6 max-w-4xl text-4xl font-light leading-tight md:text-5xl lg:text-7xl" style={{ letterSpacing: '-0.02em' }}>
+          <h1
+            className="mx-auto mb-5 max-w-4xl font-light leading-[1.1] sm:mb-6"
+            style={{ fontSize: 'clamp(2rem, 7vw, 4.5rem)', letterSpacing: '-0.02em' }}
+          >
             Ship Smarter with{' '}
-            <span className="text-[#9b87f5]">Real-Time</span> Global Tracking
+            <span className="text-[#9b87f5]">Real-Time</span>{' '}
+            Global Tracking
           </h1>
 
           {/* Sub-copy */}
-          <p className="mx-auto mb-10 max-w-2xl text-base text-white/60 md:text-xl leading-relaxed">
+          <p className="mx-auto mb-8 max-w-lg text-sm text-white/55 leading-relaxed sm:max-w-2xl sm:text-base md:text-xl">
             Global Express Shipments delivers fast, reliable, and transparent logistics for businesses
             and individuals — road, air, and ocean freight, tracked every step of the way.
           </p>
 
           {/* CTA row */}
-          <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:mb-0">
+          <div className="mb-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 sm:mb-0">
             {/* Track form */}
             <form
               onSubmit={handleTrack}
-              className="flex w-full max-w-sm items-center overflow-hidden rounded-full border border-white/10 bg-white/5 backdrop-blur-sm sm:w-auto"
+              className="flex w-full items-center overflow-hidden rounded-full border border-white/10 bg-white/5 backdrop-blur-sm sm:w-auto"
             >
               <input
                 type="text"
@@ -71,11 +75,11 @@ export default function HeroSection() {
                 onChange={e => setQuery(e.target.value)}
                 placeholder="Enter tracking number..."
                 autoComplete="off"
-                className="flex-1 bg-transparent px-5 py-3.5 text-sm text-white placeholder:text-white/40 focus:outline-none min-w-0 sm:w-52"
+                className="flex-1 bg-transparent px-4 py-3 text-sm text-white placeholder:text-white/35 focus:outline-none min-w-0 sm:px-5 sm:py-3.5 sm:w-52"
               />
               <button
                 type="submit"
-                className="neumorphic-button relative overflow-hidden shrink-0 rounded-full border border-[#9b87f5]/30 bg-gradient-to-b from-[#9b87f5]/20 to-[#9b87f5]/10 px-5 py-3.5 text-white transition-all duration-300 hover:border-[#9b87f5]/60 cursor-pointer"
+                className="neumorphic-button relative overflow-hidden shrink-0 rounded-full border border-[#9b87f5]/30 bg-linear-to-b from-[#9b87f5]/20 to-[#9b87f5]/10 px-4 py-3 text-white transition-all duration-300 hover:border-[#9b87f5]/60 cursor-pointer sm:px-5 sm:py-3.5"
                 aria-label="Track shipment"
               >
                 <MagnifyingGlass size={15} weight="bold" />
@@ -85,7 +89,7 @@ export default function HeroSection() {
             {/* Services link */}
             <Link
               href="/services"
-              className="flex w-full items-center justify-center gap-1.5 text-white/60 transition-colors hover:text-white sm:w-auto"
+              className="flex items-center justify-center gap-1.5 text-white/55 transition-colors hover:text-white"
             >
               <span className="text-sm">Our Services</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -97,46 +101,46 @@ export default function HeroSection() {
 
         {/* ── Globe + image block ── */}
         <motion.div
-          className="relative mt-4"
+          className="relative mt-6 sm:mt-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
         >
-          {/* Earth globe */}
-          <div className="relative flex h-40 w-full overflow-hidden md:h-64">
+          {/* Earth globe — smaller on mobile */}
+          <div className="relative flex h-24 w-full overflow-hidden sm:h-40 md:h-64">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://blocks.mvp-subha.me/assets/earth.png"
               alt=""
               aria-hidden="true"
-              className="absolute left-1/2 top-0 mx-auto -z-10 -translate-x-1/2 px-4 opacity-80"
+              className="absolute left-1/2 top-0 -z-10 -translate-x-1/2 w-48 opacity-70 sm:w-auto sm:px-4 sm:opacity-80"
             />
           </div>
 
           {/* Hero image */}
-          <div className="relative z-10 mx-auto max-w-5xl overflow-hidden rounded-xl shadow-[0_0_50px_rgba(155,135,245,0.2)]">
+          <div className="relative z-10 mx-auto max-w-5xl overflow-hidden rounded-lg shadow-[0_0_50px_rgba(155,135,245,0.2)] sm:rounded-xl">
             <Image
               src="/images/hero-container-globe.jpg"
               alt="Global Express Shipments worldwide operations"
               width={1920}
               height={1080}
-              className="h-auto w-full rounded-xl border border-white/10"
+              className="h-auto w-full rounded-lg border border-white/10 sm:rounded-xl"
               priority
             />
             {/* Fade bottom */}
-            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0a0613] to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-[#0a0613] to-transparent sm:h-32" />
           </div>
 
-          {/* Floating stats */}
-          <div className="absolute bottom-12 left-1/2 z-20 flex -translate-x-1/2 items-center gap-8 rounded-full border border-white/10 bg-white/5 px-8 py-3 backdrop-blur-md">
+          {/* Floating stats — tighter on mobile */}
+          <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 flex items-center gap-4 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 backdrop-blur-md sm:gap-8 sm:px-8 sm:py-3 sm:bottom-12">
             {[
               { value: '32K+', label: 'Deliveries'   },
-              { value: '98%',  label: 'On-Time Rate' },
+              { value: '98%',  label: 'On-Time'      },
               { value: '150+', label: 'Countries'    },
             ].map(({ value, label }) => (
               <div key={label} className="text-center">
-                <p className="text-base font-semibold text-white leading-none">{value}</p>
-                <p className="mt-0.5 text-[10px] text-white/45 uppercase tracking-wider">{label}</p>
+                <p className="text-sm font-semibold text-white leading-none sm:text-base">{value}</p>
+                <p className="mt-0.5 text-[9px] text-white/40 uppercase tracking-wider sm:text-[10px]">{label}</p>
               </div>
             ))}
           </div>

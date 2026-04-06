@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
-  List, SquaresFour, Truck, Plus, SignOut, ArrowSquareOut, X, ChatCircle,
+  List, SquaresFour, Truck, Plus, SignOut, ArrowSquareOut, X,
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import { createClient } from '@/lib/supabase/client';
@@ -14,7 +14,6 @@ const navItems = [
   { label: 'Dashboard',    href: '/admin/dashboard',      Icon: SquaresFour },
   { label: 'Shipments',    href: '/admin/shipments',       Icon: Truck },
   { label: 'New Shipment', href: '/admin/shipments/new',  Icon: Plus },
-  { label: 'Live Chat',    href: '/admin/chat',            Icon: ChatCircle },
 ];
 
 function isActive(href: string, pathname: string) {
