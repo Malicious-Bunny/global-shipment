@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex">
 
       {/* ── Left: brand panel ── */}
-      <div className="hidden lg:flex lg:w-5/12 bg-primary flex-col justify-between p-10 relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-5/12 flex-col justify-between p-10 relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #1a0f3a 0%, #0f0820 100%)' }}>
         {/* Subtle grid texture */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.04]"
@@ -56,7 +56,7 @@ export default function AdminLoginPage() {
 
         {/* Hero copy */}
         <div className="relative">
-          <div className="h-1 w-10 bg-primary-foreground rounded-full mb-7" />
+          <div className="h-1 w-10 bg-[#9b87f5] rounded-full mb-7" />
           <h2
             className="text-4xl font-bold text-white leading-[1.1] mb-5"
             style={{ fontFamily: 'var(--font-display)' }}
@@ -65,24 +65,24 @@ export default function AdminLoginPage() {
             <span className="text-primary-foreground">shipments</span><br />
             worldwide.
           </h2>
-          <p className="text-neutral-400 text-sm leading-relaxed max-w-xs mb-8">
+          <p className="text-white/55 text-sm leading-relaxed max-w-xs mb-8">
             Full control over shipment creation, tracking events, and delivery status — all from one panel.
           </p>
 
           <ul className="space-y-3">
             {features.map(({ Icon, text }) => (
               <li key={text} className="flex items-center gap-3">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/15 border border-white/20">
-                  <Icon size={14} weight="duotone" className="text-primary-foreground" />
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/10 border border-white/15">
+                  <Icon size={14} weight="duotone" className="text-[#9b87f5]" />
                 </div>
-                <span className="text-sm text-neutral-400">{text}</span>
+                <span className="text-sm text-white/55">{text}</span>
               </li>
             ))}
           </ul>
         </div>
 
         {/* Footer */}
-        <p className="relative text-xs text-neutral-600">
+        <p className="relative text-xs text-white/25">
           © {new Date().getFullYear()} Global Express Shipments
         </p>
       </div>
