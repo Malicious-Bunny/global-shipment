@@ -29,16 +29,14 @@ const contactItems = [
 export default function ContactPage() {
   return (
     <>
-      <div className="bg-background border-b border-neutral-200 py-16">
+      <div className="bg-background border-b border-border py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="flex items-center gap-2.5 mb-4">
             <span className="h-px w-5 bg-primary" />
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Reach Us</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-black text-foreground" style={{ letterSpacing: '-0.03em' }}>
-            Contact Us
-          </h1>
-          <p className="mt-3 text-neutral-500">We are here to help with all your shipping needs.</p>
+          <h1 className="text-4xl sm:text-5xl font-light text-foreground">Contact Us</h1>
+          <p className="mt-3 text-muted-foreground">We are here to help with all your shipping needs.</p>
         </div>
       </div>
 
@@ -47,15 +45,15 @@ export default function ContactPage() {
           {contactItems.map(({ Icon, title, lines }) => (
             <div
               key={title}
-              className="flex gap-4 rounded-2xl border border-neutral-200 bg-card p-6 shadow-xs"
+              className="flex gap-4 rounded-2xl border border-border bg-card p-6 shadow-xs hover:border-primary/40 transition-colors"
             >
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                <Icon size={20} weight="duotone" className="text-muted-foreground" />
+                <Icon size={20} weight="duotone" className="text-primary" />
               </div>
               <div>
-                <h3 className="mb-1.5 font-bold text-foreground text-sm">{title}</h3>
+                <h3 className="mb-1.5 font-semibold text-foreground text-sm">{title}</h3>
                 {lines.map((line) => (
-                  <p key={line} className="text-sm text-neutral-500 leading-relaxed">{line}</p>
+                  <p key={line} className="text-sm text-muted-foreground leading-relaxed">{line}</p>
                 ))}
               </div>
             </div>

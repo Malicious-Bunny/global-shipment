@@ -33,22 +33,24 @@ export default function Header() {
     <>
       <header
         className={cn(
-          'sticky top-0 z-50 bg-navy transition-shadow duration-300',
-          scrolled ? 'shadow-[0_2px_20px_rgba(0,0,0,0.4)]' : ''
+          'sticky top-0 z-50 transition-all duration-300',
+          scrolled
+            ? 'bg-[#0a0613]/95 backdrop-blur-md shadow-[0_2px_30px_rgba(155,135,245,0.15)] border-b border-white/5'
+            : 'bg-[#0a0613]/80 backdrop-blur-sm'
         )}
       >
         {/* Top bar */}
-        <div className="border-b border-white/10 hidden md:block">
+        <div className="border-b border-white/5 hidden md:block">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-9">
-              <p className="text-[11px] text-white/55 font-medium">
+              <p className="text-[11px] text-white/40 font-light">
                 Worldwide Logistics & Courier — Swansea, Wales UK
               </p>
               <a
                 href="tel:+447415413409"
-                className="flex items-center gap-1.5 text-[11px] text-white/55 hover:text-white transition-colors"
+                className="flex items-center gap-1.5 text-[11px] text-white/40 hover:text-[#9b87f5] transition-colors"
               >
-                <Phone size={11} weight="fill" className="text-primary-foreground" />
+                <Phone size={11} weight="fill" className="text-[#9b87f5]" />
                 +44 7415 413409
               </a>
             </div>
@@ -76,10 +78,10 @@ export default function Header() {
                     key={link.href}
                     href={link.href}
                     className={cn(
-                      'px-4 py-2 text-sm rounded-lg transition-colors duration-150',
+                      'px-4 py-2 text-sm rounded-full transition-all duration-150 font-light',
                       active
-                        ? 'text-white font-semibold bg-white/10'
-                        : 'text-white hover:text-white/90 hover:bg-white/8 font-medium'
+                        ? 'text-[#9b87f5] font-medium bg-[#9b87f5]/10 border border-[#9b87f5]/20'
+                        : 'text-white/60 hover:text-white hover:bg-white/5'
                     )}
                   >
                     {link.label}
@@ -92,7 +94,7 @@ export default function Header() {
             <div className="hidden md:flex items-center shrink-0">
               <Link
                 href="/track"
-                className="inline-flex items-center gap-1.5 rounded-lg bg-primary-foreground px-5 py-2.5 text-sm font-semibold text-primary hover:bg-primary-foreground/90 transition-colors duration-150"
+                className="neumorphic-button relative inline-flex items-center gap-1.5 overflow-hidden rounded-full border border-[#9b87f5]/30 bg-linear-to-b from-[#9b87f5]/20 to-[#9b87f5]/10 px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:border-[#9b87f5]/60"
               >
                 Track Your Order
               </Link>
@@ -101,7 +103,7 @@ export default function Header() {
             {/* Hamburger */}
             <button
               onClick={() => setOpen(true)}
-              className="md:hidden p-2 rounded-lg text-white hover:text-white/80 hover:bg-white/10 transition-colors cursor-pointer"
+              className="md:hidden p-2 rounded-full text-white/60 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
               aria-label="Open menu"
             >
               <List size={22} />
@@ -113,7 +115,7 @@ export default function Header() {
       {/* Mobile overlay */}
       {open && (
         <div
-          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
           onClick={() => setOpen(false)}
           aria-hidden="true"
         />
@@ -122,17 +124,18 @@ export default function Header() {
       {/* Mobile drawer */}
       <aside
         className={cn(
-          'fixed top-0 right-0 z-50 h-full w-72 bg-navy shadow-2xl transition-transform duration-300 ease-out',
+          'fixed top-0 right-0 z-50 h-full w-72 shadow-2xl transition-transform duration-300 ease-out border-l border-white/5',
           open ? 'translate-x-0' : 'translate-x-full'
         )}
+        style={{ background: 'linear-gradient(160deg, #0f0820 0%, #0a0613 100%)' }}
         aria-label="Mobile navigation"
       >
         {/* Drawer header */}
-        <div className="flex items-center justify-between px-5 h-16 border-b border-white/10">
+        <div className="flex items-center justify-between px-5 h-16 border-b border-white/5">
           <Logo height={30} className="brightness-0 invert" />
           <button
             onClick={() => setOpen(false)}
-            className="p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            className="p-1.5 rounded-full text-white/40 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
             aria-label="Close menu"
           >
             <X size={18} />
@@ -151,12 +154,12 @@ export default function Header() {
                 className={cn(
                   'flex items-center justify-between px-3.5 py-3 text-sm rounded-xl transition-colors duration-150',
                   active
-                    ? 'bg-primary/20 text-white font-semibold'
-                    : 'text-white hover:bg-white/8 hover:text-white/90'
+                    ? 'bg-[#9b87f5]/10 text-[#9b87f5] font-medium border border-[#9b87f5]/20'
+                    : 'text-white/60 hover:bg-white/5 hover:text-white font-light'
                 )}
               >
                 {link.label}
-                {active && <span className="h-1.5 w-1.5 rounded-full bg-primary-foreground" />}
+                {active && <span className="h-1.5 w-1.5 rounded-full bg-[#9b87f5]" />}
               </Link>
             );
           })}
@@ -166,14 +169,14 @@ export default function Header() {
           <Link
             href="/track"
             onClick={() => setOpen(false)}
-            className="flex items-center justify-center gap-2 w-full py-3 text-sm font-semibold rounded-lg bg-primary-foreground text-primary hover:bg-primary-foreground/90 transition-colors"
+            className="neumorphic-button relative flex items-center justify-center gap-2 overflow-hidden w-full py-3 text-sm font-medium rounded-full border border-[#9b87f5]/30 bg-linear-to-b from-[#9b87f5]/20 to-[#9b87f5]/10 text-white transition-all duration-300 hover:border-[#9b87f5]/60"
           >
             Track Your Order
           </Link>
         </div>
 
         <div className="absolute bottom-8 left-0 right-0 px-5">
-          <p className="text-xs text-white/45 text-center">
+          <p className="text-xs text-white/25 text-center font-light">
             © {new Date().getFullYear()} Global Express Shipments
           </p>
         </div>

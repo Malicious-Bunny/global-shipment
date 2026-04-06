@@ -8,6 +8,7 @@ import {
   Star, Quotes,
 } from '@phosphor-icons/react/dist/ssr';
 import HeroSection from '@/components/public/HeroSection';
+import { LocationMap } from '@/components/ui/location-map';
 
 /* ── Data ──────────────────────────────────────────────────────── */
 
@@ -138,8 +139,7 @@ export default function HomePage() {
       <section className="py-20 bg-card">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-          {/* Section label */}
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-10">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-10">
             What We Offer
           </p>
 
@@ -153,63 +153,47 @@ export default function HomePage() {
                   href={href}
                   className="group flex items-start gap-5 py-7 hover:bg-muted/50 -mx-4 px-4 rounded-xl transition-colors duration-150 cursor-pointer"
                 >
-                  <span className="text-xs font-bold text-neutral-300 mt-1 w-6 shrink-0">{num}</span>
+                  <span className="text-xs font-light text-muted-foreground/50 mt-1 w-6 shrink-0">{num}</span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-3 mb-1.5">
                       <div className="flex items-center gap-3">
                         <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 shrink-0">
-                          <Icon size={18} weight="duotone" className="text-muted-foreground" />
+                          <Icon size={18} weight="duotone" className="text-primary" />
                         </div>
-                        <h3 className="text-base font-bold text-foreground">{title}</h3>
+                        <h3 className="text-base font-semibold text-foreground">{title}</h3>
                       </div>
                       <ArrowUpRight
                         size={16}
-                        className="text-neutral-300 group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-150 shrink-0"
+                        className="text-muted-foreground/40 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-150 shrink-0"
                       />
                     </div>
-                    <p className="text-sm text-neutral-500 leading-relaxed pl-12">{desc}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed pl-12">{desc}</p>
                   </div>
                 </Link>
               ))}
             </div>
 
-            {/* Right: description + world map */}
+            {/* Right: description + location map */}
             <div className="lg:pt-2">
-              <h2 className="text-3xl sm:text-4xl font-black text-foreground leading-tight tracking-tight mb-4">
+              <h2 className="text-3xl sm:text-4xl font-light text-foreground leading-tight tracking-tight mb-4">
                 Transport Solutions For Business to Solve Any Delivery Problems
               </h2>
-              <p className="text-neutral-500 text-sm leading-relaxed mb-8">
+              <p className="text-muted-foreground text-sm leading-relaxed mb-8">
                 Logistics is the Process of Efficiently Moving Goods From Point A to Point B. Success
                 Demands Minute Attention to Details — from Packaging to Warehousing to Transportation.
               </p>
               <Link
                 href="/services"
-                className="inline-flex items-center gap-2 rounded-lg border-2 border-navy px-6 py-3 text-sm font-bold text-navy hover:bg-navy hover:text-white transition-all duration-200 cursor-pointer"
+                className="neumorphic-button relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-primary/30 bg-linear-to-b from-primary/20 to-primary/10 px-6 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:border-primary/60 cursor-pointer"
               >
                 More Info <ArrowUpRight size={15} />
               </Link>
 
-              {/* World map placeholder */}
-              <div className="mt-10 relative rounded-2xl overflow-hidden bg-background border border-neutral-100 h-40">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin size={28} weight="duotone" className="text-muted-foreground mx-auto mb-2" />
-                    <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wider">
-                      150+ Countries Worldwide
-                    </p>
-                  </div>
-                </div>
-                {/* Decorative dots */}
-                {[
-                  [20, 30], [35, 45], [50, 25], [65, 50], [75, 35],
-                  [42, 60], [58, 70], [80, 55], [25, 65], [90, 40],
-                ].map(([l, t], i) => (
-                  <div
-                    key={i}
-                    className="absolute h-1.5 w-1.5 rounded-full bg-primary/40"
-                    style={{ left: `${l}%`, top: `${t}%` }}
-                  />
-                ))}
+              <div className="mt-10">
+                <LocationMap
+                  location="Swansea, Wales UK"
+                  coordinates="51.6214° N, 3.9436° W"
+                />
               </div>
             </div>
           </div>
@@ -221,21 +205,20 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-            {/* Left */}
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-3">
                 Our Progress
               </p>
-              <h2 className="text-3xl sm:text-4xl font-black text-foreground leading-tight tracking-tight mb-4">
+              <h2 className="text-3xl sm:text-4xl font-light text-foreground leading-tight tracking-tight mb-4">
                 Let&rsquo;s See Our Progress
               </h2>
-              <p className="text-neutral-500 text-sm leading-relaxed mb-8 max-w-sm">
+              <p className="text-muted-foreground text-sm leading-relaxed mb-8 max-w-sm">
                 Charting Our Course: Taking Stock of Our Journey, Embracing Growth, and Paving the Way
                 Forward. Let&rsquo;s Pause, Reflect, and Renew Our Commitment to Progress.
               </p>
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 rounded-lg border-2 border-navy px-6 py-3 text-sm font-bold text-navy hover:bg-navy hover:text-white transition-all duration-200 cursor-pointer"
+                className="neumorphic-button relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-primary/30 bg-linear-to-b from-primary/20 to-primary/10 px-6 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:border-primary/60 cursor-pointer"
               >
                 More Info <ArrowUpRight size={15} />
               </Link>
@@ -244,9 +227,9 @@ export default function HomePage() {
             {/* Right: stat grid */}
             <div className="grid grid-cols-2 gap-5">
               {stats.map(({ value, label }) => (
-                <div key={label} className="bg-card rounded-2xl p-6 shadow-sm border border-neutral-100 text-center">
-                  <p className="text-4xl font-black text-muted-foreground tracking-tight leading-none mb-2">{value}</p>
-                  <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wider">{label}</p>
+                <div key={label} className="bg-card rounded-2xl p-6 shadow-sm border border-border text-center">
+                  <p className="text-4xl font-light text-primary tracking-tight leading-none mb-2">{value}</p>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{label}</p>
                 </div>
               ))}
             </div>
@@ -255,17 +238,17 @@ export default function HomePage() {
       </section>
 
       {/* ── Ticker marquee ── */}
-      <div className="bg-primary overflow-hidden py-3.5">
+      <div className="overflow-hidden py-3.5 border-y border-primary/20" style={{ background: 'linear-gradient(90deg, rgba(155,135,245,0.08) 0%, rgba(155,135,245,0.12) 50%, rgba(155,135,245,0.08) 100%)' }}>
         <div className="flex animate-[marquee_28s_linear_infinite] whitespace-nowrap">
           {[...ticker, ...ticker].map((word, i) => (
             <span
               key={i}
-              className={`inline-flex items-center gap-3 px-5 text-sm font-bold uppercase tracking-widest ${
-                i % 3 === 0 ? 'text-white' : 'text-white/60'
+              className={`inline-flex items-center gap-3 px-5 text-sm font-light uppercase tracking-widest ${
+                i % 3 === 0 ? 'text-primary' : 'text-muted-foreground'
               }`}
             >
               {word}
-              <span className="text-white/45 text-base leading-none">·</span>
+              <span className="text-primary/40 text-base leading-none">·</span>
             </span>
           ))}
         </div>
@@ -286,27 +269,27 @@ export default function HomePage() {
                   className="object-cover object-center"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
               </div>
               {/* On-time badge */}
-              <div className="absolute -bottom-5 -right-4 bg-primary rounded-2xl px-5 py-4 shadow-xl">
-                <p className="text-primary-foreground font-black text-3xl leading-none">98%</p>
-                <p className="text-primary-foreground/60 text-xs font-medium mt-1">On-Time Rate</p>
+              <div className="absolute -bottom-5 -right-4 rounded-2xl px-5 py-4 shadow-xl border border-primary/30" style={{ background: 'linear-gradient(135deg, rgba(155,135,245,0.25) 0%, rgba(155,135,245,0.1) 100%)', backdropFilter: 'blur(12px)' }}>
+                <p className="text-primary font-semibold text-3xl leading-none">98%</p>
+                <p className="text-muted-foreground text-xs font-medium mt-1">On-Time Rate</p>
               </div>
               {/* Experience badge */}
-              <div className="absolute top-6 -left-4 bg-card rounded-2xl px-5 py-4 shadow-xl border border-neutral-100">
-                <p className="text-foreground font-black text-3xl leading-none">10+</p>
-                <p className="text-neutral-400 text-xs font-medium mt-1">Years Experience</p>
+              <div className="absolute top-6 -left-4 bg-card rounded-2xl px-5 py-4 shadow-xl border border-border">
+                <p className="text-foreground font-semibold text-3xl leading-none">10+</p>
+                <p className="text-muted-foreground text-xs font-medium mt-1">Years Experience</p>
               </div>
             </div>
 
             {/* Right: steps */}
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-2">Process</p>
-              <h2 className="text-3xl sm:text-4xl font-black text-foreground leading-tight tracking-tight mb-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-2">Process</p>
+              <h2 className="text-3xl sm:text-4xl font-light text-foreground leading-tight tracking-tight mb-3">
                 How We Work
               </h2>
-              <p className="text-sm text-neutral-500 leading-relaxed mb-10">
+              <p className="text-sm text-muted-foreground leading-relaxed mb-10">
                 Discover our streamlined logistics process that ensures efficiency and excellence at every step.
               </p>
 
@@ -315,18 +298,18 @@ export default function HomePage() {
                   <div key={num} className="flex gap-4">
                     <div className="flex flex-col items-center">
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                        <Icon size={18} weight="duotone" className="text-muted-foreground" />
+                        <Icon size={18} weight="duotone" className="text-primary" />
                       </div>
                       {i < howWeWork.length - 1 && (
-                        <div className="w-px flex-1 bg-neutral-100 mt-2 min-h-[1.5rem]" />
+                        <div className="w-px flex-1 bg-border mt-2 min-h-[1.5rem]" />
                       )}
                     </div>
                     <div className={`${i < howWeWork.length - 1 ? 'pb-6' : 'pb-0'} pt-1.5`}>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{num}</span>
-                        <h3 className="text-sm font-bold text-foreground">{title}</h3>
+                        <span className="text-[10px] font-medium text-muted-foreground/60 uppercase tracking-widest">{num}</span>
+                        <h3 className="text-sm font-semibold text-foreground">{title}</h3>
                       </div>
-                      <p className="text-xs text-neutral-500 leading-relaxed">{desc}</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
                     </div>
                   </div>
                 ))}
@@ -337,16 +320,16 @@ export default function HomePage() {
       </section>
 
       {/* ── Latest News ── */}
-      <section className="py-20 bg-card">
+      <section className="py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-2">Our Blog</p>
-              <h2 className="text-3xl sm:text-4xl font-black text-foreground tracking-tight">Latest News</h2>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-2">Our Blog</p>
+              <h2 className="text-3xl sm:text-4xl font-light text-foreground tracking-tight">Latest News</h2>
             </div>
             <Link
               href="/contact"
-              className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground/75 transition-colors"
+              className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               View All <ArrowRight size={14} weight="bold" />
             </Link>
@@ -357,7 +340,7 @@ export default function HomePage() {
               <Link
                 key={i}
                 href={item.href}
-                className="group rounded-2xl overflow-hidden border border-neutral-100 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                className="group rounded-2xl overflow-hidden border border-border hover:border-primary/40 hover:shadow-[0_0_30px_rgba(155,135,245,0.1)] transition-all duration-300 cursor-pointer bg-card"
               >
                 <div className="relative h-48 overflow-hidden bg-muted">
                   <Image
@@ -367,15 +350,15 @@ export default function HomePage() {
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 640px) 100vw, 33vw"
                   />
-                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-lg px-2.5 py-1">
-                    <p className="text-[10px] font-semibold text-neutral-600">Published {item.date}</p>
+                  <div className="absolute top-3 left-3 rounded-lg px-2.5 py-1 border border-white/10 bg-black/50 backdrop-blur-sm">
+                    <p className="text-[10px] font-medium text-white/70">Published {item.date}</p>
                   </div>
                 </div>
                 <div className="p-5">
-                  <h3 className="text-sm font-bold text-foreground leading-snug mb-3 group-hover:text-foreground transition-colors duration-150">
+                  <h3 className="text-sm font-light text-foreground leading-snug mb-3">
                     {item.title}
                   </h3>
-                  <div className="flex items-center gap-1 text-xs font-semibold text-muted-foreground">
+                  <div className="flex items-center gap-1 text-xs font-medium text-primary">
                     Read more <ArrowRight size={12} weight="bold" />
                   </div>
                 </div>
@@ -386,46 +369,39 @@ export default function HomePage() {
       </section>
 
       {/* ── Testimonials ── */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-card">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-2">Testimonials</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-foreground tracking-tight mb-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-2">Testimonials</p>
+            <h2 className="text-3xl sm:text-4xl font-light text-foreground tracking-tight mb-3">
               Over 1000+ People Trust Us
             </h2>
-            <p className="text-sm text-neutral-500 max-w-md mx-auto leading-relaxed">
-              Real experiences from real customers — see why businesses and individuals worldwide choose GES
-              for their logistics needs.
+            <p className="text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+              Real experiences from real customers — see why businesses and individuals worldwide choose GES.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
             {testimonials.map((t, i) => (
-              <div key={i} className="bg-card rounded-2xl p-6 border border-neutral-100 shadow-sm relative">
-                {/* Quote icon */}
+              <div key={i} className="bg-background rounded-2xl p-6 border border-border shadow-sm relative">
                 <div className="absolute top-5 right-5 opacity-10">
-                  <Quotes size={32} weight="fill" className="text-muted-foreground" />
+                  <Quotes size={32} weight="fill" className="text-primary" />
                 </div>
-
-                {/* Stars */}
                 <div className="flex gap-0.5 mb-4">
                   {[...Array(5)].map((_, j) => (
                     <Star key={j} size={13} weight="fill" className="text-yellow-400" />
                   ))}
                 </div>
-
-                <p className="text-sm text-neutral-600 leading-relaxed mb-5">
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5">
                   &ldquo;{t.quote}&rdquo;
                 </p>
-
-                {/* Author */}
-                <div className="flex items-center gap-3 pt-4 border-t border-neutral-100">
-                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <span className="text-muted-foreground font-black text-sm">{t.initials}</span>
+                <div className="flex items-center gap-3 pt-4 border-t border-border">
+                  <div className="h-10 w-10 rounded-full bg-primary/15 flex items-center justify-center shrink-0">
+                    <span className="text-primary font-semibold text-sm">{t.initials}</span>
                   </div>
                   <div>
-                    <p className="font-bold text-sm text-foreground leading-none">{t.name}</p>
-                    <p className="text-xs text-neutral-400 mt-0.5">{t.role}</p>
+                    <p className="font-semibold text-sm text-foreground leading-none">{t.name}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{t.role}</p>
                   </div>
                 </div>
               </div>
@@ -435,7 +411,7 @@ export default function HomePage() {
           <div className="text-center">
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 rounded-lg border-2 border-navy px-8 py-3 text-sm font-bold text-navy hover:bg-navy hover:text-white transition-all duration-200 cursor-pointer"
+              className="neumorphic-button relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-primary/30 bg-linear-to-b from-primary/20 to-primary/10 px-8 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:border-primary/60 cursor-pointer"
             >
               Show All People <ArrowUpRight size={15} />
             </Link>
@@ -444,12 +420,12 @@ export default function HomePage() {
       </section>
 
       {/* ── Connect / Social ── */}
-      <section className="py-14 bg-card border-t border-neutral-100">
+      <section className="py-14 bg-background border-t border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-1">Connect With Us</p>
-              <h3 className="text-xl font-black text-foreground">Follow GES on Social Media</h3>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">Connect With Us</p>
+              <h3 className="text-xl font-light text-foreground">Follow GES on Social Media</h3>
             </div>
             <div className="flex items-center gap-3">
               {socialLinks.map(({ Icon, href, label }) => (
@@ -457,7 +433,7 @@ export default function HomePage() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted text-neutral-500 hover:bg-primary hover:text-primary-foreground transition-all duration-200 cursor-pointer"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted text-muted-foreground hover:bg-primary/20 hover:text-primary transition-all duration-200 cursor-pointer border border-border hover:border-primary/40"
                 >
                   <Icon size={18} weight="fill" />
                 </a>

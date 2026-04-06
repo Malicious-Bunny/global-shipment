@@ -1,21 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { MagnifyingGlass, Truck, AirplaneTilt, Boat } from '@phosphor-icons/react';
-import { cn } from '@/lib/utils';
-
-const pills = [
-  { Icon: Truck,         label: 'Road Freight' },
-  { Icon: AirplaneTilt,  label: 'Air Freight'  },
-  { Icon: Boat,          label: 'Ocean Freight' },
-];
+import { motion } from 'motion/react';
+import { MagnifyingGlass } from '@phosphor-icons/react';
 
 export default function HeroSection() {
-  const [query, setQuery]     = useState('');
-  const [focused, setFocused] = useState(false);
-  const router                = useRouter();
+  const [query, setQuery] = useState('');
+  const router = useRouter();
 
   function handleTrack(e: React.FormEvent) {
     e.preventDefault();
@@ -24,136 +18,131 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="flex min-h-[88vh] overflow-hidden">
+    <section
+      className="relative w-full overflow-hidden pb-10 pt-28 font-light text-white antialiased md:pb-16 md:pt-32"
+      style={{ background: 'linear-gradient(135deg, #0a0613 0%, #150d27 100%)' }}
+    >
+      {/* Purple glow — top right */}
+      <div
+        className="pointer-events-none absolute right-0 top-0 h-1/2 w-1/2"
+        style={{ background: 'radial-gradient(circle at 70% 30%, rgba(155,135,245,0.15) 0%, rgba(13,10,25,0) 60%)' }}
+      />
+      {/* Purple glow — top left */}
+      <div
+        className="pointer-events-none absolute left-0 top-0 h-1/2 w-1/2 -scale-x-100"
+        style={{ background: 'radial-gradient(circle at 70% 30%, rgba(155,135,245,0.15) 0%, rgba(13,10,25,0) 60%)' }}
+      />
 
-      {/* ── Left panel: dark navy content ── */}
-      <div className="relative flex flex-1 flex-col justify-center bg-navy px-6 sm:px-10 lg:px-16 py-20 lg:max-w-[55%]">
+      <div className="container relative z-10 mx-auto max-w-2xl px-4 text-center md:max-w-4xl md:px-6 lg:max-w-7xl">
 
-        {/* Subtle grid overlay */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
-        />
-
-        <div className="relative z-10 max-w-xl">
-
+        {/* ── Text block ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 mb-7">
-            <span className="h-2 w-2 rounded-full bg-primary-foreground animate-pulse" />
-            <span className="text-xs font-semibold text-white/80 uppercase tracking-wider">
-              Worldwide Logistics & Courier
-            </span>
-          </div>
+          <span className="mb-6 inline-block rounded-full border border-[#9b87f5]/30 px-3 py-1 text-xs text-[#9b87f5] uppercase tracking-widest">
+            Worldwide Logistics &amp; Courier — Swansea, Wales UK
+          </span>
 
           {/* Headline */}
-          <h1 className="font-black text-white leading-[1.05] tracking-[-0.03em] mb-3"
-            style={{ fontSize: 'clamp(2.4rem, 5vw, 4.5rem)' }}>
-            Global Express<br />
-            <span className="text-primary-foreground">Shipments</span>
+          <h1 className="mx-auto mb-6 max-w-4xl text-4xl font-light leading-tight md:text-5xl lg:text-7xl" style={{ letterSpacing: '-0.02em' }}>
+            Ship Smarter with{' '}
+            <span className="text-[#9b87f5]">Real-Time</span> Global Tracking
           </h1>
 
-          <p className="text-sm text-white/60 font-semibold uppercase tracking-widest mb-4">
-            Crafting Your Logistics Online
+          {/* Sub-copy */}
+          <p className="mx-auto mb-10 max-w-2xl text-base text-white/60 md:text-xl leading-relaxed">
+            Global Express Shipments delivers fast, reliable, and transparent logistics for businesses
+            and individuals — road, air, and ocean freight, tracked every step of the way.
           </p>
 
-          <p className="text-base text-white/70 max-w-sm leading-relaxed mb-8">
-            Seamless shipping solutions for businesses and individuals — road, air, and ocean freight with full real-time tracking.
-          </p>
-
-          {/* Service pills */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            {pills.map(({ Icon, label }) => (
-              <span
-                key={label}
-                className="inline-flex items-center gap-1.5 bg-white/8 border border-white/15 rounded-full px-3.5 py-1.5 text-xs font-medium text-white/75"
-              >
-                <Icon size={13} weight="duotone" className="text-white/70" />
-                {label}
-              </span>
-            ))}
-          </div>
-
-          {/* Track form */}
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/55 mb-2">
-              Track My Shipment
-            </p>
+          {/* CTA row */}
+          <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:mb-0">
+            {/* Track form */}
             <form
               onSubmit={handleTrack}
-              className={cn(
-                'flex items-center rounded-xl overflow-hidden border bg-card transition-all duration-200',
-                focused
-                  ? 'border-primary shadow-[0_0_0_3px_oklch(0.8545_0.1675_159.6564/0.25)]'
-                  : 'border-white/10'
-              )}
+              className="flex w-full max-w-sm items-center overflow-hidden rounded-full border border-white/10 bg-white/5 backdrop-blur-sm sm:w-auto"
             >
               <input
                 type="text"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
-                onFocus={() => setFocused(true)}
-                onBlur={() => setFocused(false)}
-                placeholder="Booking or Container no."
+                placeholder="Enter tracking number..."
                 autoComplete="off"
-                className="flex-1 bg-transparent px-4 py-3.5 text-sm text-foreground placeholder:text-neutral-400 focus:outline-none min-w-0"
+                className="flex-1 bg-transparent px-5 py-3.5 text-sm text-white placeholder:text-white/40 focus:outline-none min-w-0 sm:w-52"
               />
               <button
                 type="submit"
-                className="flex items-center gap-2 bg-primary hover:bg-primary/85 px-5 py-3.5 text-sm font-bold text-primary-foreground transition-colors shrink-0 cursor-pointer whitespace-nowrap"
+                className="neumorphic-button relative overflow-hidden shrink-0 rounded-full border border-[#9b87f5]/30 bg-gradient-to-b from-[#9b87f5]/20 to-[#9b87f5]/10 px-5 py-3.5 text-white transition-all duration-300 hover:border-[#9b87f5]/60 cursor-pointer"
+                aria-label="Track shipment"
               >
                 <MagnifyingGlass size={15} weight="bold" />
-                <span className="hidden sm:inline">Track Shipment Now</span>
-                <span className="sm:hidden">Track</span>
               </button>
             </form>
+
+            {/* Services link */}
+            <Link
+              href="/services"
+              className="flex w-full items-center justify-center gap-1.5 text-white/60 transition-colors hover:text-white sm:w-auto"
+            >
+              <span className="text-sm">Our Services</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </Link>
+          </div>
+        </motion.div>
+
+        {/* ── Globe + image block ── */}
+        <motion.div
+          className="relative mt-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
+        >
+          {/* Earth globe */}
+          <div className="relative flex h-40 w-full overflow-hidden md:h-64">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://blocks.mvp-subha.me/assets/earth.png"
+              alt=""
+              aria-hidden="true"
+              className="absolute left-1/2 top-0 mx-auto -z-10 -translate-x-1/2 px-4 opacity-80"
+            />
           </div>
 
-          {/* Stats row */}
-          <div className="mt-10 flex items-center gap-8 border-t border-white/10 pt-8">
+          {/* Hero image */}
+          <div className="relative z-10 mx-auto max-w-5xl overflow-hidden rounded-xl shadow-[0_0_50px_rgba(155,135,245,0.2)]">
+            <Image
+              src="/images/hero-container-globe.jpg"
+              alt="Global Express Shipments worldwide operations"
+              width={1920}
+              height={1080}
+              className="h-auto w-full rounded-xl border border-white/10"
+              priority
+            />
+            {/* Fade bottom */}
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0a0613] to-transparent" />
+          </div>
+
+          {/* Floating stats */}
+          <div className="absolute bottom-12 left-1/2 z-20 flex -translate-x-1/2 items-center gap-8 rounded-full border border-white/10 bg-white/5 px-8 py-3 backdrop-blur-md">
             {[
-              { value: '32K+',  label: 'Deliveries'    },
-              { value: '98%',   label: 'On-Time Rate'  },
-              { value: '150+',  label: 'Countries'     },
+              { value: '32K+', label: 'Deliveries'   },
+              { value: '98%',  label: 'On-Time Rate' },
+              { value: '150+', label: 'Countries'    },
             ].map(({ value, label }) => (
-              <div key={label}>
-                <p className="text-2xl font-black text-white tracking-tight leading-none">{value}</p>
-                <p className="text-[10px] text-white/55 font-medium uppercase tracking-wider mt-1">{label}</p>
+              <div key={label} className="text-center">
+                <p className="text-base font-semibold text-white leading-none">{value}</p>
+                <p className="mt-0.5 text-[10px] text-white/45 uppercase tracking-wider">{label}</p>
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
+
       </div>
-
-      {/* ── Right panel: container image ── */}
-      <div className="relative hidden lg:block flex-1">
-        <Image
-          src="/images/hero-container-globe.jpg"
-          alt="GES shipping containers — worldwide logistics"
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="45vw"
-        />
-        {/* Gradient fade from left for seamless blend */}
-        <div className="absolute inset-0 bg-linear-to-r from-navy via-navy/10 to-transparent" />
-
-        {/* Floating card */}
-        <div className="absolute bottom-10 right-8 bg-card rounded-2xl px-5 py-4 shadow-2xl">
-          <p className="text-3xl font-black text-foreground tracking-tight leading-none">98%</p>
-          <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wider mt-1">On-Time Delivery</p>
-        </div>
-
-        {/* Second floating card */}
-        <div className="absolute top-10 right-8 bg-primary rounded-2xl px-5 py-4 shadow-2xl">
-          <p className="text-3xl font-black text-primary-foreground tracking-tight leading-none">32K+</p>
-          <p className="text-xs font-semibold text-primary-foreground/60 uppercase tracking-wider mt-1">Successful Deliveries</p>
-        </div>
-      </div>
-
     </section>
   );
 }

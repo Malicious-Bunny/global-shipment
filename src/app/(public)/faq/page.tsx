@@ -22,16 +22,16 @@ export default function FAQPage() {
 
   return (
     <>
-      <div className="bg-background border-b border-neutral-200 py-16 sm:py-20">
+      <div className="bg-background border-b border-border py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-3">Support</p>
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground">Frequently Asked Questions</h1>
-          <p className="mt-3 text-neutral-500">Everything you need to know about our services and how they work.</p>
+          <h1 className="text-4xl sm:text-5xl font-light text-foreground">Frequently Asked Questions</h1>
+          <p className="mt-3 text-muted-foreground">Everything you need to know about our services and how they work.</p>
         </div>
       </div>
 
       <div className="mx-auto max-w-3xl px-4 sm:px-6 py-16">
-        <div className="divide-y divide-neutral-200 rounded-2xl border border-neutral-200 bg-card overflow-hidden shadow-sm">
+        <div className="divide-y divide-border rounded-2xl border border-border bg-card overflow-hidden shadow-sm">
           {faqs.map((faq, i) => {
             const open = expanded === i;
             return (
@@ -40,26 +40,26 @@ export default function FAQPage() {
                   onClick={() => setExpanded(open ? null : i)}
                   className={cn(
                     'flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors duration-150 cursor-pointer',
-                    open ? 'bg-accent-light' : 'hover:bg-muted/50'
+                    open ? 'bg-primary/5' : 'hover:bg-muted/50'
                   )}
                   aria-expanded={open}
                 >
-                  <span className={cn('text-sm font-semibold', open ? 'text-muted-foreground' : 'text-neutral-700')}>
+                  <span className={cn('text-sm font-medium', open ? 'text-primary' : 'text-foreground')}>
                     {faq.q}
                   </span>
                   <div className={cn(
-                    'flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors',
-                    open ? 'bg-primary' : 'bg-neutral-100'
+                    'flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors border',
+                    open ? 'bg-primary/20 border-primary/40' : 'bg-muted border-border'
                   )}>
                     {open
-                      ? <Minus size={11} weight="bold" className="text-white" />
-                      : <Plus size={11} weight="bold" className="text-neutral-500" />
+                      ? <Minus size={11} weight="bold" className="text-primary" />
+                      : <Plus size={11} weight="bold" className="text-muted-foreground" />
                     }
                   </div>
                 </button>
                 {open && (
-                  <div className="px-6 pb-5 bg-accent-light border-t border-primary/10">
-                    <p className="text-sm text-neutral-600 leading-relaxed pt-2">{faq.a}</p>
+                  <div className="px-6 pb-5 bg-primary/5 border-t border-primary/10">
+                    <p className="text-sm text-muted-foreground leading-relaxed pt-2">{faq.a}</p>
                   </div>
                 )}
               </div>

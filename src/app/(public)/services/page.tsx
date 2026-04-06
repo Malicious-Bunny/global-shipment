@@ -67,13 +67,13 @@ const services = [
 export default function ServicesPage() {
   return (
     <>
-      <div className="bg-background border-b border-neutral-200 py-14">
+      <div className="bg-background border-b border-border py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="h-1 w-10 bg-primary rounded-full mb-5" />
-          <h1 className="text-4xl sm:text-5xl font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
+          <h1 className="text-4xl sm:text-5xl font-light text-foreground">
             Our Services
           </h1>
-          <p className="mt-2 text-neutral-500">Comprehensive logistics solutions for every need</p>
+          <p className="mt-2 text-muted-foreground">Comprehensive logistics solutions for every need</p>
         </div>
       </div>
 
@@ -82,9 +82,8 @@ export default function ServicesPage() {
           {services.map(({ slug, Icon, title, image, desc, features }) => (
             <div
               key={title}
-              className="group rounded-xl border border-neutral-200 bg-background shadow-xs hover:shadow-md hover:border-primary/30 transition-all duration-200 overflow-hidden flex flex-col"
+              className="group rounded-xl border border-border bg-card shadow-xs hover:border-primary/40 hover:shadow-[0_0_30px_rgba(155,135,245,0.1)] transition-all duration-300 overflow-hidden flex flex-col"
             >
-              {/* Image banner */}
               {image && (
                 <div className="relative h-48 w-full overflow-hidden">
                   <Image
@@ -94,14 +93,12 @@ export default function ServicesPage() {
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-3 left-4 flex items-center gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/90 backdrop-blur-sm">
-                      <Icon size={17} weight="duotone" className="text-white" />
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/80 backdrop-blur-sm">
+                      <Icon size={17} weight="duotone" className="text-primary-foreground" />
                     </div>
-                    <span className="text-sm font-semibold text-white drop-shadow" style={{ fontFamily: 'var(--font-display)' }}>
-                      {title}
-                    </span>
+                    <span className="text-sm font-medium text-white drop-shadow">{title}</span>
                   </div>
                 </div>
               )}
@@ -110,18 +107,18 @@ export default function ServicesPage() {
                 {!image && (
                   <div className="flex items-center gap-3 mb-4">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                      <Icon size={22} weight="duotone" className="text-muted-foreground" />
+                      <Icon size={22} weight="duotone" className="text-primary" />
                     </div>
-                    <h2 className="text-base font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>{title}</h2>
+                    <h2 className="text-base font-semibold text-foreground">{title}</h2>
                   </div>
                 )}
                 {image && (
-                  <h2 className="text-base font-semibold text-foreground mb-3" style={{ fontFamily: 'var(--font-display)' }}>{title}</h2>
+                  <h2 className="text-base font-semibold text-foreground mb-3">{title}</h2>
                 )}
-                <p className="text-sm text-neutral-500 leading-relaxed mb-4">{desc}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{desc}</p>
                 <ul className="space-y-1.5 mb-5">
                   {features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-neutral-500">
+                    <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
                       <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
                       {f}
                     </li>
@@ -130,7 +127,7 @@ export default function ServicesPage() {
                 <div className="mt-auto">
                   <Link
                     href={`/services/${slug}`}
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-foreground transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors cursor-pointer"
                   >
                     Learn More <ArrowRight size={14} />
                   </Link>

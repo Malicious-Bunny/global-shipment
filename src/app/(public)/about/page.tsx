@@ -17,11 +17,11 @@ export default function AboutPage() {
   return (
     <>
       {/* Page header */}
-      <div className="bg-background border-b border-neutral-200 py-16 sm:py-20">
+      <div className="bg-background border-b border-border py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-3">Our Story</p>
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground">About Us</h1>
-          <p className="mt-3 text-neutral-500 max-w-md">Your trusted global logistics partner — built on trust, driven by technology.</p>
+          <h1 className="text-4xl sm:text-5xl font-light text-foreground">About Us</h1>
+          <p className="mt-3 text-muted-foreground max-w-md">Your trusted global logistics partner — built on trust, driven by technology.</p>
         </div>
       </div>
 
@@ -31,21 +31,21 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-3">Who We Are</p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
+            <h2 className="text-2xl sm:text-3xl font-light text-foreground mb-6">
               A logistics company built on trust.
             </h2>
-            <p className="text-neutral-500 leading-relaxed mb-4">
+            <p className="text-muted-foreground leading-relaxed mb-4">
               Global Express Shipments is a leading international courier and cargo company
               providing fast, reliable, and secure logistics solutions to businesses and
               individuals worldwide.
             </p>
-            <p className="text-neutral-500 leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               With years of experience in the industry, we have built a reputation for
               excellence — handling everything from small documents to complex project cargo
               with the same level of care and professionalism.
             </p>
           </div>
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md">
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md border border-border">
             <Image
               src="/images/about-container.jpg"
               alt="Global Express Shipments shipping container at port"
@@ -58,7 +58,7 @@ export default function AboutPage() {
 
         {/* Mission */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md order-2 lg:order-1">
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md order-2 lg:order-1 border border-border">
             <Image
               src="/images/fleet-vehicles.jpg"
               alt="Global Express Shipments fleet"
@@ -69,14 +69,14 @@ export default function AboutPage() {
           </div>
           <div className="order-1 lg:order-2">
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-3">Our Mission</p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
+            <h2 className="text-2xl sm:text-3xl font-light text-foreground mb-6">
               Making global commerce simple.
             </h2>
-            <p className="text-neutral-500 leading-relaxed mb-4">
+            <p className="text-muted-foreground leading-relaxed mb-4">
               To connect businesses and people across the world through fast, affordable,
               and transparent shipping — making global commerce accessible for everyone.
             </p>
-            <p className="text-neutral-500 leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               We invest in technology, people, and partnerships to continuously improve
               our services and deliver an exceptional experience from booking to delivery.
             </p>
@@ -86,15 +86,15 @@ export default function AboutPage() {
         {/* Values */}
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-3">What We Stand For</p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-10">Our core values.</h2>
+          <h2 className="text-2xl sm:text-3xl font-light text-foreground mb-10">Our core values.</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {values.map(({ title, desc }) => (
-              <div key={title} className="rounded-2xl bg-background border border-neutral-200 p-6 hover:border-primary/30 transition-colors">
+              <div key={title} className="rounded-2xl bg-card border border-border p-6 hover:border-primary/40 hover:shadow-[0_0_20px_rgba(155,135,245,0.08)] transition-all duration-200">
                 <div className="flex items-center gap-2.5 mb-3">
-                  <CheckCircle size={16} weight="duotone" className="text-muted-foreground shrink-0" />
-                  <h3 className="font-bold text-foreground text-sm">{title}</h3>
+                  <CheckCircle size={16} weight="duotone" className="text-primary shrink-0" />
+                  <h3 className="font-semibold text-foreground text-sm">{title}</h3>
                 </div>
-                <p className="text-sm text-neutral-500 leading-relaxed">{desc}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
