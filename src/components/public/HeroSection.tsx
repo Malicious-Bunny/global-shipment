@@ -101,22 +101,11 @@ export default function HeroSection() {
 
         {/* ── Globe + image block ── */}
         <motion.div
-          className="relative mt-6 sm:mt-4"
+          className="relative mt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
         >
-          {/* Earth globe — smaller on mobile */}
-          <div className="relative flex h-24 w-full overflow-hidden sm:h-40 md:h-64">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://blocks.mvp-subha.me/assets/earth.png"
-              alt=""
-              aria-hidden="true"
-              className="absolute left-1/2 top-0 -z-10 -translate-x-1/2 w-48 opacity-70 sm:w-auto sm:px-4 sm:opacity-80"
-            />
-          </div>
-
           {/* Hero image */}
           <div className="relative z-10 mx-auto max-w-5xl overflow-hidden rounded-lg shadow-[0_0_50px_rgba(155,135,245,0.2)] sm:rounded-xl">
             <Image
