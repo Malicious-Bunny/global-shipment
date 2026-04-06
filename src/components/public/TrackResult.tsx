@@ -104,16 +104,54 @@ export default function TrackResult({ shipment }: Props) {
             {/* Progress steps — only for standard statuses */}
             {step >= 0 && !isTerminal && (
               <div className="mt-5">
-                <div className="flex items-center gap-0">
+
+                {/* ── Mobile: vertical stack ── */}
+                <div className="flex flex-col gap-0 sm:hidden">
+                  {STEP_LABELS.map((label, i) => {
+                    const done = i < step;
+                    const current = i === step;
+                    const isLast = i === STEP_LABELS.length - 1;
+                    return (
+                      <div key={label} className="flex items-start gap-3">
+                        {/* Dot + spine */}
+                        <div className="flex flex-col items-center shrink-0 w-5">
+                          <div
+                            className={`h-5 w-5 rounded-full flex items-center justify-center border-2 shrink-0 transition-colors duration-200 ${
+                              done
+                                ? 'bg-primary border-primary'
+                                : current
+                                ? 'bg-card border-primary'
+                                : 'bg-card border-border'
+                            }`}
+                          >
+                            {done && <CheckCircle size={11} weight="fill" className="text-primary-foreground" />}
+                            {current && <div className="h-2 w-2 rounded-full bg-primary" />}
+                          </div>
+                          {!isLast && (
+                            <div className={`w-px flex-1 min-h-6 mt-0.5 ${done ? 'bg-primary/40' : 'bg-border'}`} />
+                          )}
+                        </div>
+                        {/* Label */}
+                        <span className={`text-xs py-0.5 pb-4 leading-tight ${
+                          current ? 'font-semibold text-foreground' : done ? 'text-muted-foreground' : 'text-muted-foreground/40'
+                        }`}>
+                          {label}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* ── Desktop: horizontal ── */}
+                <div className="hidden sm:flex items-center gap-0">
                   {STEP_LABELS.map((label, i) => {
                     const done = i < step;
                     const current = i === step;
                     return (
                       <div key={label} className="flex-1 flex flex-col items-center gap-1.5">
                         <div className="relative w-full flex items-center">
-                          {/* Left connector */}
                           {i > 0 && (
-                            <div className={`flex-1 h-0.5 ${done || current ? 'bg-primary' : 'bg-neutral-200'}`} />
+                            <div className={`flex-1 h-0.5 ${done || current ? 'bg-primary' : 'bg-border'}`} />
                           )}
                           <div
                             className={`h-5 w-5 shrink-0 rounded-full flex items-center justify-center border-2 z-10 transition-colors duration-200 ${
@@ -121,24 +159,26 @@ export default function TrackResult({ shipment }: Props) {
                                 ? 'bg-primary border-primary'
                                 : current
                                 ? 'bg-card border-primary'
-                                : 'bg-card border-neutral-300'
+                                : 'bg-card border-border'
                             }`}
                           >
                             {done && <CheckCircle size={12} weight="fill" className="text-primary-foreground" />}
                             {current && <div className="h-2 w-2 rounded-full bg-primary" />}
                           </div>
-                          {/* Right connector */}
                           {i < STEP_LABELS.length - 1 && (
-                            <div className={`flex-1 h-0.5 ${done ? 'bg-primary' : 'bg-neutral-200'}`} />
+                            <div className={`flex-1 h-0.5 ${done ? 'bg-primary' : 'bg-border'}`} />
                           )}
                         </div>
-                        <span className={`text-[9px] uppercase tracking-wide text-center leading-tight px-1 ${current ? 'font-bold text-foreground' : done ? 'text-muted-foreground' : 'text-neutral-400'}`}>
+                        <span className={`text-[9px] uppercase tracking-wide text-center leading-tight px-1 ${
+                          current ? 'font-bold text-foreground' : done ? 'text-muted-foreground' : 'text-muted-foreground/40'
+                        }`}>
                           {label}
                         </span>
                       </div>
                     );
                   })}
                 </div>
+
               </div>
             )}
 
